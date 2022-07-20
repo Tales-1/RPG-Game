@@ -120,10 +120,21 @@ select {
     
 }
 
+.gc__card-active{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    
+    
+}
+
 @media (min-width:800px){
 
     .gc__cardcontainer{
         flex-direction: row;
+        align-items: start;
+        justify-content: end;
         width: 800px;
     }
 
@@ -140,9 +151,18 @@ select {
 .gc--white{
     color: white;
 }
-.card_moves{
+.moves{
     display:flex;
-    flex-direction: column;
+    
+    margin-top: 1em;
+    gap: .3em;
+}
+.option{
+    color: white;
+    padding: .5em;
+    width: 100%;
+    text-align: center;
+    background: grey;
 }
 
 .img{
@@ -160,3 +180,20 @@ select {
 .hidden{
     visibility: hidden;
 }
+
+.hp-container{
+    height: 6px;
+    margin-top: 1em;
+    width: 70%;
+    border: 1px solid black;
+    
+}
+
+.hp-bar{
+    display: block;
+    background: white;
+    border-radius: 0 2em 2em 0;
+    height: 100%;
+    z-index: 100;
+}
+
