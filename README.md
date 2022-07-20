@@ -2,7 +2,7 @@
 
 ## Objective: To make an RPG, turn-based game using selected characters. Player takes it in turns to select an attack. Aim of the game is to defeat the enemy before dying.
 
-Different functions of the game:
+### Different functions of the game:
 
  - On load present hero character options
  - select charater
@@ -14,8 +14,8 @@ Different functions of the game:
  - end game after being defeated
 
 
-Methods required: 
+### Methods required: 
 
-Class constructors
-Functions
-Event listeners
+1) Class constructors
+2) Functions
+3) Event listeners
