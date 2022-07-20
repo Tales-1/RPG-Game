@@ -87,28 +87,14 @@ startBtn.addEventListener("click",()=>{
     if(characterSelected){
         firstPage.classList.add("hidden")
         startGame()
-        let loadChar = characters.map((char)=>{
+        let loadChar = characters.map((char,index)=>{
             if(char.selected){
-                return (
-                    `
-                    <div class="gc__card-active" id=${char.id}>
-                            <strong class="card__name gc--white">${char.name}</strong>
-                            <img src=${char.img} alt="Bald abid" class="img">
-                            <div class="hp-container"><span class="hp-bar" width=></span></div>
-                            <section class="moves">
-                                    <span class="option">${char.moves[0]}</span>
-                                    <span class="option">${char.moves[1]}</span>
-                            </section>
-                    </div>
-                    `
-                )
+                let playerOne = new Character(characterData[index])
+                return playerOne.cardHtml()
+
             } else if(char.type==="enemy"){
-               return (`
-                    <div class="gc__card-active" id=${char.id}>
-                            <strong class="card__name gc--white">${char.name}</strong>
-                            <img src=${char.img} alt="Bald abid" class="img">
-                    </div>
-                    `)
+                let enemy = new Character(characterData[2])
+               return enemy.cardHtml()
             }
             
         })
@@ -123,21 +109,14 @@ startBtn.addEventListener("click",()=>{
                              </div>`
        
     }
-    
-    let attack = document.querySelector(".attack")
-    let options = document.querySelectorAll(".option")
 
 })
 
 
-const playerOne = new Character(characterData[0])
 
-console.log(playerOne.healthBarHtml())
 // FUNCTIONS 
 
-function selectOption(){
 
-}
 
 function unselectCards(){
     const cardChildren = Array.from(cardContainer.children)
