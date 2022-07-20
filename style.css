@@ -89,7 +89,7 @@ select {
     background: radial-gradient(circle, rgba(51,43,55,1) 0%, rgba(51,43,55,1) 100%);
 }
 
-.gc__firstpage{
+.gc--pagestyles{
     display: grid;
     place-items: center;
     grid-template-rows: repeat(3,auto);
@@ -145,7 +145,7 @@ select {
     flex-direction: column;
 }
 
-.bald-abid, .bald-hamzah{
+.img{
     width: 40%;
 }
 

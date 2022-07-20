@@ -3,8 +3,20 @@ const heroHamzah = document.getElementById("hero-hamzah")
 const gameContainer = document.getElementById("game-container")
 const cardContainer = document.getElementById("card-container")
 const startGame = document.getElementById("start-game")
+const firstPage = document.getElementById("first-page")
 
 
+let secondPage = `
+                <div class="gc__secondpage>
+
+                <div class="gc__cardcontainer>
+
+                <div class="gc__card" id="hero-abid">
+                <strong class="card__name gc--white">Bald Abid</strong>
+                <img src="./imgs/bald abid(1).png" alt="Bald abid" class="bald-abid">
+                </div>
+
+        `
 // FLAGS
 let characters = [
     {   
@@ -14,7 +26,7 @@ let characters = [
         selected:false,
         img:"/imgs/baldabid(1).png",
         moves:["Shiny Headbutt", "Stare"],
-        class:"bald-abid"
+        
     },
     {
         id:"hero-hamzah",
@@ -23,7 +35,7 @@ let characters = [
         selected:false,
         img:"/imgs/hamzahbald(1).png",
         moves:["Shiny Forehead", "ABBA!"],
-        class:"bald-hamzah"
+        
     }
 ]
 
@@ -39,11 +51,10 @@ window.addEventListener("load",()=>{
     let cardMenu = characters.map((item)=>{
         return `<div class="gc__card" id=${item.id}>
                 <strong class="card__name gc--white">${item.hero}</strong>
-                <img src=${item.img} alt=${item.hero} class=${item.class}>
+                <img src=${item.img} alt=${item.hero} class="img">
                 </div>`
     
     })
-
     cardMenu = cardMenu.join("")
     cardContainer.innerHTML = cardMenu
 })
@@ -51,23 +62,57 @@ window.addEventListener("load",()=>{
 cardContainer.addEventListener("click",(e)=>{
     const targetCard = e.target.closest("div")
     if(!targetCard || targetCard.id==="card-container") return
-    console.log(targetCard)
-    const cardChildren = Array.from(cardContainer.children)
-    cardChildren.forEach((card)=>{
-        card.classList.remove("selected")
-    })
+    unselectCards()
     targetCard.classList.add("selected")
-    characterSelected = true;
+    selectCard(targetCard.id)
 })
 
 startGame.addEventListener("click",()=>{
+    if(characterSelected){
+        isGame = true;
+        firstPage.classList.add("hidden")
+        playerTurn = true
+        playerMove = true
+        enemyAlive = true
 
+        characters.forEach((char)=>{
+            if(char.selected){
+                gameContainer.innerHTML = `
+                <div class="gc--pagestyles">
+                    <div class="gc__cardcontainer">
+                        <div class="gc__card" id=${char.id}>
+                            <strong class="card__name gc--white">${char.hero}</strong>
+                            <img src=${char.img} alt="Bald abid" class="img">
+                        </div>
+                    </div>
+                </div>`
+            }
+        })
+        
+    }
 })
 
 
 
 // FUNCTIONS 
 
+
+function unselectCards(){
+    const cardChildren = Array.from(cardContainer.children)
+    cardChildren.forEach((card)=>{
+        card.classList.remove("selected")
+    })
+    
+}
+
+function selectCard(card){
+    characters.forEach((char)=>{
+        if(char.id === card){
+            char.selected = true
+        }
+    })
+    characterSelected = true;
+}
 // `<div class="gc__firstpage" id="first-page">
 //         <h1 class="gc__title gc--white">Choose your Character!</h1>
 
