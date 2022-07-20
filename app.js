@@ -63,10 +63,11 @@ window.addEventListener("load",()=>{
     let cardMenu = characters.map((item)=>{
         if(item.type === "hero"){
         
-            return `<div class="gc__card" id=${item.id}>
+            return (`<div class="gc__card" id=${item.id}>
                 <strong class="card__name gc--white">${item.name}</strong>
                 <img src=${item.img} alt=${item.name} class="img">
-                </div>`}
+                </div>`)
+            }
     
     })
     cardMenu = cardMenu.join("")
@@ -129,7 +130,9 @@ startBtn.addEventListener("click",()=>{
 })
 
 
+const playerOne = new Character(characterData[0])
 
+console.log(playerOne.healthBarHtml())
 // FUNCTIONS 
 
 function selectOption(){
