@@ -93,6 +93,7 @@ select {
 }
 
 .gc__title{
+    text-align: center;
     color: white;
     font-size: clamp(2rem,3vw,3rem);
     
@@ -142,4 +143,12 @@ select {
 
 .bald-abid{
     width: 40%;
+}
+
+#start-game{
+    padding: .6em;
+}
+
+.selected{
+    background-color: rgb(140, 107, 107);
 }
