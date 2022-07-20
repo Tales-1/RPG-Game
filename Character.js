@@ -5,6 +5,7 @@ class Character{
     constructor(data){
         Object.assign(this,data)
         this.maxHealth = this.hp
+        this.damage = 0
     }
 
     setMovesHtml(){
@@ -13,6 +14,7 @@ class Character{
         <span class="option">${this.moves[1].name}</span>
         </section> `)
     }
+
 
     takeDamage(attackMove){
         this.hp-=attackMove
@@ -32,7 +34,7 @@ class Character{
     cardHtml(){
         const {name,type,img,moves,id} = this
         const healthBar = this.healthBarHtml()
-        `
+        return `
                     <div class="gc__card-active" id=${id}>
                             <strong class="card__name gc--white">${name}</strong>
                             <img src=${img} alt="Bald abid" class="img">

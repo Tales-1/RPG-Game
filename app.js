@@ -6,51 +6,21 @@ const startBtn = document.getElementById("start-game")
 const firstPage = document.getElementById("first-page")
 
 
-let secondPage = `
-                <div class="gc__secondpage>
+// let secondPage = `
+//                 <div class="gc__secondpage>
 
-                <div class="gc__cardcontainer>
+//                 <div class="gc__cardcontainer>
 
-                <div class="gc__card" id="hero-abid">
-                <strong class="card__name gc--white">Bald Abid</strong>
-                <img src="./imgs/bald abid(1).png" alt="Bald abid" class="bald-abid">
-                </div>
+//                 <div class="gc__card" id="hero-abid">
+//                 <strong class="card__name gc--white">Bald Abid</strong>
+//                 <img src="./imgs/bald abid(1).png" alt="Bald abid" class="bald-abid">
+//                 </div>
 
-        `
+//         `
 // FLAGS
-let characters = [
-    {   
-        id:"hero-abid",
-        name:"Bald Abid",
-        type:"hero",
-        hp:58,
-        selected:false,
-        img:"/imgs/baldabid(1).png",
-        moves:["Shiny Headbutt", "Stare"],
-        
-    },
-    {
-        id:"hero-hamzah",
-        name:"Bald Hamzah",
-        type:"hero",
-        hp:54,
-        selected:false,
-        img:"/imgs/hamzahbald(1).png",
-        moves:["Shiny Forehead", "ABBA!"],
-        
-    },
-    {
-        id:"enemy-jawad",
-        name:"Bald Jawad",
-        type:"enemy",
-        hp:54,
-        selected:false,
-        img:"/imgs/jawad.png",
-        moves:["Lazor Beam", "Fwem Fwem Fresh"],
-        
-    }
-]
 
+let chosenCharacter;
+let enemy = new Character(characterData[2])
 let isGame = false;
 let characterSelected = false;
 let playerTurn = false;
@@ -60,7 +30,7 @@ let playerAlive = false;
 // EVENT LISTENERS
 
 window.addEventListener("load",()=>{
-    let cardMenu = characters.map((item)=>{
+    let cardMenu = characterData.map((item)=>{
         if(item.type === "hero"){
         
             return (`<div class="gc__card" id=${item.id}>
@@ -86,37 +56,25 @@ cardContainer.addEventListener("click",(e)=>{
 startBtn.addEventListener("click",()=>{
     if(characterSelected){
         firstPage.classList.add("hidden")
-        startGame()
-        let loadChar = characters.map((char,index)=>{
-            if(char.selected){
-                let playerOne = new Character(characterData[index])
-                return playerOne.cardHtml()
-
-            } else if(char.type==="enemy"){
-                let enemy = new Character(characterData[2])
-               return enemy.cardHtml()
-            }
-            
-        })
-        loadChar = loadChar.join("")
-        gameContainer.innerHTML = `
-                            <div class="gc--pagestyles">
-                            <h1 class="gc__title gc--white">${playerTurn ? "Your Turn" : "Enemy turn"}</h1>
-                              <div class="gc__cardcontainer">
-                                 ${loadChar}
-                                </div>
-                                <button class="attack">Attack</button>
-                             </div>`
-       
-    }
-
+        render()
+        selectMove()
+        attack()
+        
+    }    
 })
 
+const attackBtn = document.querySelector(".attack")
 
 
 // FUNCTIONS 
 
 
+function attack(){
+    const attackBtn = document.querySelector(".attack")
+    attackBtn.addEventListener("click",()=>{
+        console.log(chosenCharacter)
+    })
+}
 
 function unselectCards(){
     const cardChildren = Array.from(cardContainer.children)
@@ -127,14 +85,53 @@ function unselectCards(){
 }
 
 function selectCard(card){
-    characters.forEach((char)=>{
+    characterData.forEach((char)=>{
         if(char.id === card){
             char.selected = true
+            chosenCharacter = char
         }
     })
     characterSelected = true;
 }
 
+function selectMove(arr){
+    const moves = document.querySelector(".moves")
+        moves.addEventListener("click",(e)=>{
+            const targetOption = e.target
+            if(targetOption.closest("span")){
+                const movesChildren = Array.from(moves.children)
+                movesChildren.forEach((option)=>{
+                    option.classList.remove("selected")
+                })
+              targetOption.classList.add("selected")  
+              playerMove = targetOption.innerHTML
+              
+            }
+        })
+}
+
+function render(){
+    let loadChar = characterData.map((char,index)=>{
+        if(char.selected){
+            let playerOne = new Character(characterData[index])
+            return playerOne.cardHtml()
+
+        } else if(char.type==="enemy"){
+           return enemy.cardHtml()
+        }
+        
+    })
+    loadChar = loadChar.join("")
+    gameContainer.innerHTML = `
+                        <div class="gc--pagestyles">
+                        <h1 class="gc__title gc--white">${playerTurn ? "Your Turn" : "Enemy turn"}</h1>
+                          <div class="gc__cardcontainer">
+                             ${loadChar}
+                            </div>
+                            <button class="attack">Attack</button>
+                         </div>`
+
+}
 
 
 function startGame(){
