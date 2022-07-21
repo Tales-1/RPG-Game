@@ -197,3 +197,21 @@ select {
     z-index: 100;
 }
 
+.hp-number{
+    position: relative;
+    top:.7em;
+    color: white;
+}
+
+.gc__msgcontainer{
+    display: flex;
+    gap: 3em;
+    flex-direction: column;
+    align-self: flex-end;
+}
+
+.endmessage{
+    text-align: center;
+    font-size: clamp(2.5rem,4vw,5rem);
+    color: white;
+}
