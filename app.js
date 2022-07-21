@@ -25,8 +25,6 @@ let isGame = false;
 let characterSelected = false;
 let playerTurn = false;
 let playerMove = false;
-let enemyAlive = false;
-let playerAlive = false;
 // EVENT LISTENERS
 
 window.addEventListener("load",()=>{
@@ -55,26 +53,17 @@ cardContainer.addEventListener("click",(e)=>{
 
 startBtn.addEventListener("click",()=>{
     if(characterSelected){
+        startGame()
         firstPage.classList.add("hidden")
         render()
-        selectMove()
-        attack()
-        
     }    
 })
 
-const attackBtn = document.querySelector(".attack")
 
 
-// FUNCTIONS 
 
 
-function attack(){
-    const attackBtn = document.querySelector(".attack")
-    attackBtn.addEventListener("click",()=>{
-        console.log(chosenCharacter)
-    })
-}
+// FUNCTIONS .
 
 function unselectCards(){
     const cardChildren = Array.from(cardContainer.children)
@@ -88,48 +77,51 @@ function selectCard(card){
     characterData.forEach((char)=>{
         if(char.id === card){
             char.selected = true
-            chosenCharacter = char
+            chosenCharacter = new Character(char)
         }
     })
     characterSelected = true;
 }
 
-function selectMove(arr){
-    const moves = document.querySelector(".moves")
-        moves.addEventListener("click",(e)=>{
-            const targetOption = e.target
-            if(targetOption.closest("span")){
-                const movesChildren = Array.from(moves.children)
-                movesChildren.forEach((option)=>{
-                    option.classList.remove("selected")
-                })
-              targetOption.classList.add("selected")  
-              playerMove = targetOption.innerHTML
-              
-            }
-        })
-}
+
+function attack(){
+    if(playerTurn){
+        enemy.takeDamage(chosenCharacter.damageDealt())
+        playerTurn = false;
+        render()
+        if(enemy.dead){
+            endGame()
+        } else if(!playerTurn){
+            setTimeout(()=>{
+                chosenCharacter.takeDamage(12)
+                playerTurn = true
+                render()
+                if(chosenCharacter.dead){
+                    endGame()
+                }
+            },500)
+    }
+    
+}}
+
+
+ function selectMove(){
+      chosenCharacter.selectOpt()
+ }
 
 function render(){
-    let loadChar = characterData.map((char,index)=>{
-        if(char.selected){
-            let playerOne = new Character(characterData[index])
-            return playerOne.cardHtml()
-
-        } else if(char.type==="enemy"){
-           return enemy.cardHtml()
-        }
-        
-    })
-    loadChar = loadChar.join("")
     gameContainer.innerHTML = `
                         <div class="gc--pagestyles">
                         <h1 class="gc__title gc--white">${playerTurn ? "Your Turn" : "Enemy turn"}</h1>
                           <div class="gc__cardcontainer">
-                             ${loadChar}
+                             ${chosenCharacter.cardHtml()}
+                             ${enemy.cardHtml()}
                             </div>
                             <button class="attack">Attack</button>
                          </div>`
+    selectMove()
+    const attackBtn = document.querySelector(".attack")
+    attackBtn.addEventListener("click",attack)
 
 }
 
@@ -138,37 +130,20 @@ function startGame(){
     isGame = true;
     playerTurn = true
     playerMove = true
-    enemyAlive = true
 }
-// `<div class="gc__firstpage" id="first-page">
-//         <h1 class="gc__title gc--white">Choose your Character!</h1>
 
-//         <div class="gc__cardcontainer" id="card-container">
-            
-//             <div class="gc__card" id="hero-abid">
-//                 <strong class="card__name gc--white">Bald Abid</strong>
-//                 <img src="./imgs/bald abid(1).png" alt="Bald abid" class="bald-abid">
-//                 <!-- <div class="card_moves">
-//                     <span class="option">Shiny Headbutt</span>
-//                     <span class="option">Shiny Headbutt</span>
-//                     <span class="option">Shiny Headbutt</span>
-//                     <span class="option">Shiny Headbutt</span>
-//                 </div> -->
-//             </div>
+function endGame(){
+    const endMessage = chosenCharacter.hp === 0  && enemy.hp === 0 ? 
+    "No victors - everyone died" : chosenCharacter.hp > 0 ? "You win!" : "Bald Jawad Wins!"
 
-//             <div class="gc__card" id="hero-hamzah">
-//                 <strong class="card__name gc--white">Bald Hamzah</strong>
-//                 <img src="./imgs/hamzah bald(1).png" alt="Bald abid" class="bald-abid">
-//                 <!-- <div class="card_moves">
-//                     <span class="option">Shiny Headbutt</span>
-//                     <span class="option">Shiny Headbutt</span>
-//                     <span class="option">Shiny Headbutt</span>
-//                     <span class="option">Shiny Headbutt</span>
-//                 </div> -->
-//             </div>
-
-//         </div>
-
-//         <button id="start-game">
-//             Start Game!
-//         </button>`
+    setTimeout(()=>{
+        gameContainer.innerHTML = `
+                        <div class="gc--pagestyles">
+                            <div class="gc__msgcontainer">
+                                <h1 class="endmessage">${endMessage}</h1>
+                                <img src=${chosenCharacter.img} alt=${chosenCharacter.id}class="img">
+                                <button class="play-again">Play Again!</button>
+                                </div>
+                         </div>`
+    },2000)
+}
