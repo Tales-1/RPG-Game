@@ -88,19 +88,20 @@ select {
 .gc{
     padding: 10px;
     width: 100vw;
-    height: 100%;
-    background: rgb(51,43,55);
-    background: radial-gradient(circle, rgba(51,43,55,1) 0%, rgba(51,43,55,1) 100%);
-    height: 100vh;
+    background-color: #485461;
+background-image: linear-gradient(315deg, #485461 0%, #28313b 74%);
+    
+ 
 }
 
 .gc--pagestyles{
     display: grid;
     place-items: center;
     grid-template-rows: repeat(3,auto);
-    width: 100vw;
-    height: 100%;
+    height: 100vh;
+    
 }
+
 
 .gc__title{
     text-align: center;
@@ -111,12 +112,10 @@ select {
 
 .gc__cardcontainer{
     display: flex;
-    
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 5em;
-   
+    gap: 3em;
 }
 
 /* CARD STYLES */
@@ -131,6 +130,25 @@ select {
     width: 40%;
 }
 
+.gc__card--styles{
+    position: relative;
+    font-family: 'Crete Round', serif;
+    color:white;
+    padding-bottom: 1.5em;
+    border-radius: 1em 1em 0 0;
+    background: var(--bg_card);
+    box-shadow: 0px 0px 40px #fff;
+    
+
+}
+
+.gc-hover{
+    transition: all 200ms ease-in-out;
+}
+
+.gc-hover:hover{
+    transform: scale(1.05);
+}
 /* .gc__card--styles::after{
     content: '';
     position: absolute;
@@ -161,17 +179,18 @@ select {
 
 .info-container{
     display: flex;
+    width: 80%;
     flex-direction: column;
     text-align: center;
-    margin-block: 1.5em;
+    margin-block: .3em .8em;
 }
 
 .level{
     position: relative;
     margin-bottom: 1em;
-    color:white;
+    color:rgb(25, 1, 86);
     font-weight: bold;
-    font-size: 1.2em;
+    font-size: .8em;
 }
 
 .level::after{
@@ -197,20 +216,10 @@ select {
     letter-spacing: 4px;
 }
 
-.gc__card--styles{
-    position: relative;
-    font-family: 'Crete Round', serif;
-    color:white;
-    padding: 2em 1em;
-    border-radius: 1em 1em 0 0;
-    background: var(--bg_card);
-
-}
-
-
-
 .img-battle{
-    width: 50%;
+    width: 40%;
+    aspect-ratio: 1/1;
+    object-fit: contain;
 }
 
 .gc__card-active{
@@ -218,7 +227,9 @@ select {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    
+    min-width: 200px;
+    width: 100%;
+   padding-top: 1em;
     
 }
 
@@ -233,7 +244,8 @@ select {
     align-items: center;
     bottom: -1.5em;
     width: 100%;
-    background-color: black;
+    background-color: #000000;
+background-image: linear-gradient(147deg, #000000 0%, #04619f 74%);
     margin-top: 1em;
     padding: .5em;
     gap: .3em;
@@ -270,6 +282,10 @@ select {
         justify-content: space-between;
         width: 800px;
     }
+    .info-container{
+       
+        margin-block: 1em 2em;
+    }
 
 }
 
@@ -297,6 +313,7 @@ select {
     margin-top: 1em;
     width: 70%;
     border: 1px solid black;
+    overflow: hidden;
     
 }
 
@@ -305,7 +322,8 @@ select {
     background: white;
     border-radius: 0 2em 2em 0;
     height: 100%;
-    z-index: 100;
+    transition: 600ms all ease-in-out;
+    transform: translateX(-200px);
 }
 
 .hp-number{
