@@ -6,7 +6,7 @@ const characterData = [
         hp:58,
         selected:false,
         img:"/imgs/baldabid(1).png",
-        moves:[{name:"Shiny Forehead", dmg:12},{name:"Batchelor's Kiss", dmg:15}],
+        moves:[{name:"Shiny Headbutt", dmg:12},{name:"Batchelor's Kiss", dmg:15}],
         
     },
     {
