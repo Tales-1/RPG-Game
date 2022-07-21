@@ -17,7 +17,7 @@ class Character{
     }
 
     selectOpt(){
-        const moves = document.querySelector(".moves")
+        const moves = document.querySelector(".moves-container")
         moves.addEventListener("click",(e)=>{
             const targetOption = e.target.closest("span")
             if(!targetOption) return
@@ -46,7 +46,7 @@ class Character{
     healthBarHtml(){
         const percent = getPercentage(this.hp, this.maxHealth)
         return (`
-            <div class="hp-container"><span class="hp-bar" style = "width:${percent}%"></span></div>   
+            <div class="hp-container"><span class="hp-bar" style = "transform:translateX(${percent-100}%)"></span></div>   
         `)
     }
 
@@ -54,17 +54,18 @@ class Character{
         const {name,type,img,moves,id} = this
         const healthBar = this.healthBarHtml()
         return `
-                    <div class="gc__card-active" id=${id}>
+                    <div class="gc__card-active gc__card--styles" id=${id}>
                             <strong class="card__name gc--white">${name}</strong>
                             <img src=${img} alt="Bald abid" class="img-battle">
                             <p class="hp-number">Health : ${this.hp}</p>
                             ${healthBar}
-                            <section class="moves">
+                            <section class="moves-container">
                                     <span class="option">${moves[0].name}</span>
                                     <span class="option">${moves[1].name}</span>
                             </section>
                     </div>
                     `
+                    
     }
 
 }

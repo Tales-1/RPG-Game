@@ -31,7 +31,7 @@ window.addEventListener("load",()=>{
     let cardMenu = characterData.map((item)=>{
         if(item.type === "hero"){
         
-            return (`<div class="gc__card gc__card--styles" id=${item.id}>
+            return (`<div class="gc__card gc__card--styles gc-hover" id=${item.id}>
                 <div class="image-holder"><img src=${item.img} alt=${item.name} class="img"></div>
                 <div class="info-container">
                     <span class="level">Level 10</span>
