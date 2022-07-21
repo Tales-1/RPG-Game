@@ -2,6 +2,7 @@ const characterData = [
     {   
         id:"hero-abid",
         name:"Bald Abid",
+        descriptor:"Looking for a rishta",
         type:"hero",
         hp:58,
         selected:false,
@@ -12,6 +13,7 @@ const characterData = [
     {
         id:"hero-hamzah",
         name:"Bald Hamzah",
+        descriptor:"Sweaty Overwatch Player",
         type:"hero",
         hp:54,
         selected:false,

@@ -56,7 +56,7 @@ class Character{
         return `
                     <div class="gc__card-active" id=${id}>
                             <strong class="card__name gc--white">${name}</strong>
-                            <img src=${img} alt="Bald abid" class="img">
+                            <img src=${img} alt="Bald abid" class="img-battle">
                             <p class="hp-number">Health : ${this.hp}</p>
                             ${healthBar}
                             <section class="moves">

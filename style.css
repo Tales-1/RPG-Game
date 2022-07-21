@@ -1,5 +1,8 @@
+@import url('https://fonts.googleapis.com/css2?family=Crete+Round&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bangers&display=swap');
 :root{
-    --bg_card: #231d24;
+    --bg_card: #FD6644;
+    --bg_card-orange:#FFB342;
 }
 
 /* Box sizing rules */
@@ -41,7 +44,7 @@ body {
   min-height: 100vh;
   text-rendering: optimizeSpeed;
   line-height: 1.5;
-  font-size: 16px;
+  font-size: clamp(16px,2vw,22px);
   font-family: 'MedievalSharp', cursive;
   
 }
@@ -83,10 +86,12 @@ select {
 }
 
 .gc{
+    padding: 10px;
     width: 100vw;
     height: 100%;
     background: rgb(51,43,55);
     background: radial-gradient(circle, rgba(51,43,55,1) 0%, rgba(51,43,55,1) 100%);
+    height: 100vh;
 }
 
 .gc--pagestyles{
@@ -104,20 +109,108 @@ select {
     
 }
 
-
 .gc__cardcontainer{
     display: flex;
+    
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 3em;
+    gap: 5em;
    
 }
 
+/* CARD STYLES */
+
 .gc__card{
-    display: grid;
-    place-items: center;
-    
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-width: 200px;
+    width: 40%;
+}
+
+/* .gc__card--styles::after{
+    content: '';
+    position: absolute;
+    left: 15%;
+    bottom: 27%;
+    height: 3px;
+    width: 70%;
+    background: white;
+} */
+
+
+.image-holder{
+    position: relative;
+    display: flex;
+    justify-content: center;
+    width: 70%;
+    aspect-ratio: 1/1;
+    align-items: flex-start;
+    background-color: #FFF;
+    border-radius: 50%;
+}
+
+.img{
+    position: absolute;
+    top: -1em;
+    width: 80%;
+}
+
+.info-container{
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    margin-block: 1.5em;
+}
+
+.level{
+    position: relative;
+    margin-bottom: 1em;
+    color:white;
+    font-weight: bold;
+    font-size: 1.2em;
+}
+
+.level::after{
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -.6em;
+    width: 100%;
+    height: 3px;
+    background-color: white;
+}
+
+
+.card__name{
+    font-family: 'Bangers', cursive;
+    font-size: 1.3em;
+    letter-spacing: 4px;
+}
+
+.descriptor{
+    font-family: 'Bangers', cursive;
+    font-size: 0.8em;
+    letter-spacing: 4px;
+}
+
+.gc__card--styles{
+    position: relative;
+    font-family: 'Crete Round', serif;
+    color:white;
+    padding: 2em 1em;
+    border-radius: 1em 1em 0 0;
+    background: var(--bg_card);
+
+}
+
+
+
+.img-battle{
+    width: 50%;
 }
 
 .gc__card-active{
@@ -129,45 +222,63 @@ select {
     
 }
 
+.moves-container{
+    display:flex;
+    font-family: 'Bangers', cursive;
+   
+}
+
+.moves-select-page{
+    position: absolute;
+    align-items: center;
+    bottom: -1.5em;
+    width: 100%;
+    background-color: black;
+    margin-top: 1em;
+    padding: .5em;
+    gap: .3em;
+}
+
+.moves-title{
+    position: absolute;
+    padding-bottom: 1.5em;
+    font-size: 1em;
+    letter-spacing: 3px;
+    top: 0e;
+    right: 50%;
+    transform: translate(50%);
+}
+
+.option{
+    color: white;
+    font-size: 0.8em;
+    margin-top: 1.7em;
+    
+    width: 100%;
+    text-align: center;
+    
+}
+
+
+
+
 @media (min-width:800px){
 
     .gc__cardcontainer{
         flex-direction: row;
         align-items: start;
-        justify-content: end;
+        justify-content: space-between;
         width: 800px;
     }
 
-    .gc__card{
-        flex-basis: 100%;
-        
-    }
 }
 
-.card__name{
-    margin-bottom: 2em;
-}
 
 .gc--white{
     color: white;
 }
-.moves{
-    display:flex;
-    
-    margin-top: 1em;
-    gap: .3em;
-}
-.option{
-    color: white;
-    padding: .5em;
-    width: 100%;
-    text-align: center;
-    background: grey;
-}
 
-.img{
-    width: 40%;
-}
+
 
 #start-game{
     padding: .6em;
