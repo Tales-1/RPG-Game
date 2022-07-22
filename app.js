@@ -4,7 +4,7 @@ const gameContainer = document.getElementById("game-container")
 const cardContainer = document.getElementById("card-container")
 const startBtn = document.getElementById("start-game")
 const firstPage = document.getElementById("first-page")
-
+const battleDialogue = document.getElementById("battle-dialogue")
 
 // let secondPage = `
 //                 <div class="gc__secondpage>
@@ -24,7 +24,7 @@ let enemy = new Character(characterData[2])
 let isGame = false;
 let characterSelected = false;
 let playerTurn = false;
-let playerMove = false;
+
 // EVENT LISTENERS
 
 window.addEventListener("load",()=>{
@@ -97,37 +97,61 @@ function selectCard(card){
 function attack(){
     if(playerTurn){
         enemy.takeDamage(chosenCharacter.damageDealt())
-        playerTurn = false;
+        battleDialogueHtml()
+        toggleBattleDialogue()
         render()
+        playerTurn = false
         if(enemy.dead){
             endGame()
         } else if(!playerTurn){
             setTimeout(()=>{
                 chosenCharacter.takeDamage(12)
-                playerTurn = true
+                battleDialogueHtml()
                 render()
+                toggleBattleDialogue()
+                playerTurn = true
                 if(chosenCharacter.dead){
                     endGame()
                 }
-            },500)
+            },1500)
     }
     
 }}
+ 
+function battleDialogueHtml(){
+    if(playerTurn){
+        battleDialogue.innerHTML =chosenCharacter.battleDialogueHtml()
+    } else { 
+        battleDialogue.innerHTML = enemy.battleDialogueHtml()}
 
+}
+
+function toggleBattleDialogue(){
+    if(playerTurn){
+        battleDialogue.classList.remove("hidden")
+    } else { 
+        setTimeout(()=>{
+            battleDialogue.classList.add("hidden")
+        },1500)
+    }
+    
+}
 
  function selectMove(){
       chosenCharacter.selectOpt()
  }
 
 function render(){
+    gameContainer.style.height = "initial"
     gameContainer.innerHTML = `
-                        <div class="gc--pagestyles">
+                        <div class="gc--pagestyles" id="second-page">
                         <h1 class="gc__title gc--white">${playerTurn ? "Your Turn" : "Enemy turn"}</h1>
-                          <div class="gc__cardcontainer">
+                          <div class="gc__cardcontainer--active">
                              ${chosenCharacter.cardHtml()}
+                             <button class="attack">Attack</button>
                              ${enemy.cardHtml()}
                             </div>
-                            <button class="attack">Attack</button>
+                           
                          </div>`
     selectMove()
     const attackBtn = document.querySelector(".attack")
@@ -139,7 +163,7 @@ function render(){
 function startGame(){
     isGame = true;
     playerTurn = true
-    playerMove = true
+  
 }
 
 function endGame(){

@@ -6,13 +6,12 @@ class Character{
         Object.assign(this,data)
         this.maxHealth = this.hp
         this.storeDmg = [this.moves[0].dmg,this.moves[1].dmg]
-        this.dmg = 0;
     }
 
     setMovesHtml(){
         return ( `
-        <span class="option option--flex">${this.moves[0].name} <p class="move-info hidden">${this.moves[0].info}</p></span>
-        <span class="option option--flex">${this.moves[1].name} <p class="move-info hidden">${this.moves[1].info}</p></span>
+        <span class="option option--flex">${this.moves[0].name} <p class="move-info">${this.moves[0].info} </p><aside class="dmg"><img src="./imgs/moveicons/damage.png" alt="damage-icon" class="dmg-img">${this.moves[0].dmg}</aside></span>
+        <span class="option option--flex">${this.moves[1].name} <p class="move-info">${this.moves[1].info} <aside class="dmg"><img src="./imgs/moveicons/damage.png" alt="damage-icon" class="dmg-img">${this.moves[1].dmg}</aside></p></span>
         `)
     }
 
@@ -24,18 +23,23 @@ class Character{
             const movesChildren = Array.from(moves.children)
             movesChildren.forEach((option)=>{
                 option.classList.remove("selected")
-                option.children[0].classList.add("hidden")
             })
             targetOption.classList.add("selected")
-            targetOption.children[0].classList.remove("hidden")
+           
             const targetIndex = movesChildren.findIndex(move=>move === targetOption)
             this.dmgDealt = this.storeDmg[targetIndex]
+            this.selectedMoveName = this.moves[targetIndex].name
             })
+    }
+
+    battleDialogueHtml(){
+        return `${this.name} used ${this.selectedMoveName}, it did ${this.dmgDealt} damage!`
     }
     
     damageDealt(){
         return this.dmgDealt
     }
+
 
     takeDamage(attackMove){
         this.hp-=attackMove
@@ -57,13 +61,13 @@ class Character{
         const healthBar = this.healthBarHtml()
         const displayMoves = this.setMovesHtml()
         return `
-                    <div class="gc__card-active gc__card--styles" id=${id}>
+                    <div class="gc__card--active gc__card--styles" id=${id}>
                             <strong class="card__name gc--white">${name}</strong>
                             <img src=${img} alt="Bald abid" class="img-battle">
                             <p class="hp-number">health : ${this.hp}</p>
                             ${healthBar}
                             <section class="moves-container moves-battle-page">
-                                    ${displayMoves}
+                                    ${type === "hero" ? displayMoves : ""}
                             </section>
                     </div>
                     `
