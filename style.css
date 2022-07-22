@@ -91,7 +91,8 @@ select {
     width: 100vw;
     background-color: #485461;
     background-image: linear-gradient(315deg, #485461 0%, #28313b 74%);
-    height: 100vh;
+   
+    
  
 }
 
@@ -99,21 +100,23 @@ select {
     display: grid;
     place-items: center;
     gap: 2em;
+    
 }
 
 #first-page{
-    margin-top: 3em;
+    height: 100vh;
+    margin-top: .3em;
 }
 
 #second-page{
-   height: 100vh;
+   
 }
 
 
 .gc__title{
     text-align: center;
     color: white;
-    font-size: clamp(2rem,3vw,3rem);
+    font-size: clamp(1.5rem,3vw,3rem);
     
 }
 
@@ -122,17 +125,17 @@ select {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    margin-block: 1em;
+    margin-bottom: auto;
     gap: 3em;
 }
 
 .gc__cardcontainer--active{
-margin-bottom: 4em;
   display: flex;
-  gap: 1em;
+  gap: .5em;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  margin-bottom: 4em;
   
 }
 
@@ -145,7 +148,7 @@ margin-bottom: 4em;
     justify-content: center;
     align-items: center;
     min-width: 200px;
-    width: 23%;
+    width: 30%;
     max-width: 300px;
   
 }
@@ -158,7 +161,7 @@ margin-bottom: 4em;
     align-items: center;
     min-width: 200px;
     max-width: 400px;
-    width: 80%;
+    width: 90%;
     border-radius: 1em;
     padding-top: 1em;
 }
@@ -168,7 +171,7 @@ margin-bottom: 4em;
     font-family: 'Crete Round', serif;
     color:white;
     padding-bottom: 1.5em;
-    border-radius: 1em 1em 0 0;
+    border-radius: 1em;
     background: #231d24;
     box-shadow: 0px 0px 40px #fff;
 
@@ -263,14 +266,14 @@ margin-bottom: 4em;
     display:flex;
     margin-inline: auto;
     font-family: 'Bangers', cursive;
-   
+  
 }
 
 .moves-select-page{
     text-align: center;
     position: absolute;
     align-items: center;
-    bottom: -2em;
+    bottom: -1.5em;
     width: 100%;
     background-color: #df5353;
     font-size: .9em;
@@ -283,7 +286,8 @@ margin-bottom: 4em;
     padding-bottom: 1.5em;
     font-size: 1em;
     letter-spacing: 3px;
-    top: 0e;
+    padding-top: .3em;
+    top: 0;
     right: 50%;
     transform: translate(50%);
 }
@@ -294,19 +298,19 @@ margin-bottom: 4em;
     color:black;
 }
 
+
+
 .option{
     position: relative;
     color: white;
     font-size: 1em;
-    
-    margin-top: 1.7em;
+    margin-top: 1em;
     width: 100%;
     
 }
 
 .option--flex{
     display: flex;
-    padding: 10px;
     padding-bottom: 20px;
     flex-direction: column;
     width: 100%;
@@ -355,7 +359,8 @@ margin-bottom: 4em;
 
 
     .gc--pagestyles{
-        gap: 4em;
+        gap: 0em;
+  
     }
     .gc__cardcontainer{
         flex-direction: row;
@@ -386,6 +391,17 @@ margin-bottom: 4em;
     
     #second-page{
         gap: 0;
+        height: 100vh;
+
+    }
+
+    .moves-battle-page{
+        display: flex;
+        gap: .5em;
+    }
+
+    .moves-battle-page > * {
+        padding:.5em .2em 1.2em;
     }
 
 }
@@ -398,7 +414,9 @@ margin-bottom: 4em;
 
 
 #start-game{
-    padding: .6em;
+    padding: .5em;
+    margin-bottom: 3em;
+    height: fit-content;
 }
 
 .selected{

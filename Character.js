@@ -32,7 +32,7 @@ class Character{
     }
 
     selectOpt(){
-        const moves = document.querySelector(".moves-container")
+        const moves = document.querySelector(".moves-battle-page")
         moves.addEventListener("click",(e)=>{
             const targetOption = e.target.closest("span")
             if(!targetOption) return
@@ -145,7 +145,7 @@ class Character{
                             <img src=${img} alt="Bald abid" class="img-battle">
                             <p class="hp-number">health : ${this.hp}</p>
                             ${healthBar}
-                            <section class="moves-container moves-battle-page">
+                            <section class="moves-battle-page">
                                     ${type === "hero" ? displayMoves : ""}
                             </section>
                     </div>
