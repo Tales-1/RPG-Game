@@ -98,14 +98,14 @@ function attack(){
     if(playerTurn){
         enemy.takeDamage(chosenCharacter.damageDealt())
         battleDialogueHtml()
-        toggleBattleDialogue()
         render()
+        toggleBattleDialogue()
         playerTurn = false
         if(enemy.dead){
             endGame()
         } else if(!playerTurn){
             setTimeout(()=>{
-                chosenCharacter.takeDamage(12)
+                chosenCharacter.takeDamage(enemy.damageDealt())
                 battleDialogueHtml()
                 render()
                 toggleBattleDialogue()
@@ -120,7 +120,7 @@ function attack(){
  
 function battleDialogueHtml(){
     if(playerTurn){
-        battleDialogue.innerHTML =chosenCharacter.battleDialogueHtml()
+        battleDialogue.innerHTML = chosenCharacter.battleDialogueHtml()
     } else { 
         battleDialogue.innerHTML = enemy.battleDialogueHtml()}
 
@@ -132,7 +132,7 @@ function toggleBattleDialogue(){
     } else { 
         setTimeout(()=>{
             battleDialogue.classList.add("hidden")
-        },1500)
+        },1800)
     }
     
 }

@@ -6,6 +6,11 @@ class Character{
         Object.assign(this,data)
         this.maxHealth = this.hp
         this.storeDmg = [this.moves[0].dmg,this.moves[1].dmg]
+        this.storeMoves = [this.moves[0].name,this.moves[1].name]
+        this.hit = false
+        this.setAcc = 0
+        this.selectedMoveName =""
+        this.dmgDealt = 0
     }
 
     setMovesHtml(){
@@ -29,17 +34,51 @@ class Character{
             const targetIndex = movesChildren.findIndex(move=>move === targetOption)
             this.dmgDealt = this.storeDmg[targetIndex]
             this.selectedMoveName = this.moves[targetIndex].name
+            this.setAcc = this.moves[targetIndex].acc
             })
     }
 
     battleDialogueHtml(){
-        return `${this.name} used ${this.selectedMoveName}, it did ${this.dmgDealt} damage!`
+        if((this.type ==="enemy" && !this.hit) || (this.type === "hero" && !this.hit)){
+           return `${this.name} used ${this.selectedMoveName}, it missed!`
+        } else{return `${this.name} used ${this.selectedMoveName}, it did ${this.dmgDealt} damage!`}
+        
     }
     
     damageDealt(){
-        return this.dmgDealt
+        // store damage of the move selected for Player
+        if(this.type ==="enemy"){
+            this.randomiseMove()
+            if(!this.hit){
+                return 0
+            } else {
+                return this.dmgDealt
+            }
+        } else if(this.type==="hero"){
+            this.accuracy =  Math.random().toFixed(1)
+            if(this.accuracy < this.setAcc){
+                this.hit = true
+                return this.dmgDealt
+            } else {
+                this.hit = false
+                return 0
+            }
+        }
     }
 
+    randomiseMove(){
+        // Select random move for computer
+        this.accuracy =  Math.random().toFixed(1)
+        this.index = Math.floor(Math.random().toFixed(1) * 2)
+        
+        if(this.accuracy < 0.8) { // this.dmgDealt = this.storeDmg[this.index]
+            this.hit = true
+            this.dmgDealt = this.storeDmg[this.index]
+            this.selectedMoveName = this.storeMoves[this.index]
+        } else { 
+            this.selectedMoveName = this.storeMoves[this.index]
+        }
+    }
 
     takeDamage(attackMove){
         this.hp-=attackMove
