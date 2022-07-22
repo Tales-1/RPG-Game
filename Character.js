@@ -7,16 +7,27 @@ class Character{
         this.maxHealth = this.hp
         this.storeDmg = [this.moves[0].dmg,this.moves[1].dmg]
         this.storeMoves = [this.moves[0].name,this.moves[1].name]
+        this.storeAcc = [this.moves[0].acc,this.moves[1].acc]
         this.hit = false
         this.setAcc = 0
+        this
         this.selectedMoveName =""
-        this.dmgDealt = 0
+        
     }
 
     setMovesHtml(){
         return ( `
-        <span class="option option--flex">${this.moves[0].name} <p class="move-info">${this.moves[0].info} </p><aside class="dmg"><img src="./imgs/moveicons/damage.png" alt="damage-icon" class="dmg-img">${this.moves[0].dmg}</aside></span>
-        <span class="option option--flex">${this.moves[1].name} <p class="move-info">${this.moves[1].info} <aside class="dmg"><img src="./imgs/moveicons/damage.png" alt="damage-icon" class="dmg-img">${this.moves[1].dmg}</aside></p></span>
+        <span class="option option--flex">${this.moves[0].name} <p class="move-info">${this.moves[0].info}</p>
+        <aside class="move-stats">
+        <img src="./imgs/moveicons/accuracy.png" alt="damage-icon" class="dmg-icon">${this.moves[0].acc*100}%
+        <img src="./imgs/moveicons/damage.png" alt="damage-icon" class="dmg-icon margin-l">${this.moves[0].dmg}</aside>
+        </span>
+        
+        <span class="option option--flex">${this.moves[1].name} <p class="move-info">${this.moves[1].info} </p>
+        <aside class="move-stats">
+        <img src="./imgs/moveicons/accuracy.png" alt="damage-icon" class="dmg-icon">${this.moves[1].acc * 100}%
+        <img src="./imgs/moveicons/damage.png" alt="damage-icon" class="dmg-icon  margin-l">${this.moves[1].dmg}</aside>
+        </span>
         `)
     }
 
@@ -47,12 +58,24 @@ class Character{
     
     damageDealt(){
         // store damage of the move selected for Player
-        if(this.type ==="enemy"){
+        if(this.type === "enemy"){
             this.randomiseMove()
             if(!this.hit){
                 return 0
-            } else {
-                return this.dmgDealt
+            } else if(this.hit){
+                if(this.dmgDealt===0){
+                    console.log("using switch statement")
+                    switch(this.selectedMoveName){
+                        case this.storeMoves[0]:
+                            this.dmgDealt = this.storeDmg[0]
+                            break;
+                        case this.storeMoves[1]:
+                            this.dmgDealt = this.storeDmg[1];
+                            break;
+                    }
+                    return this.dmgDealt
+                } else {return this.dmgDealt }
+                
             }
         } else if(this.type==="hero"){
             this.accuracy =  Math.random().toFixed(1)
@@ -66,17 +89,34 @@ class Character{
         }
     }
 
+
+
     randomiseMove(){
         // Select random move for computer
         this.accuracy =  Math.random().toFixed(1)
-        this.index = Math.floor(Math.random().toFixed(1) * 2)
-        
-        if(this.accuracy < 0.8) { // this.dmgDealt = this.storeDmg[this.index]
+        this.index = Math.floor(Math.random())
+        if(Math.random()<0.7){
+            this.index = 0
+        } else {this.index = 1}
+
+        // Store selected move
+        this.selectedMoveName = this.storeMoves[this.index]
+        // determine accuracy of selected move
+        switch(this.selectedMoveName){
+            case this.storeMoves[0]:
+                this.setAcc = this.moves[0].acc
+                break;
+            case this.storeMoves[1]:
+                this.setAcc = this.moves[1].acc
+                break;
+        }
+        // check if the move hits the target
+        if(this.accuracy < this.setAcc) { // this.dmgDealt = this.storeDmg[this.index]
             this.hit = true
-            this.dmgDealt = this.storeDmg[this.index]
-            this.selectedMoveName = this.storeMoves[this.index]
+            this.dmgDealt = this.moves[this.index].dmg
         } else { 
-            this.selectedMoveName = this.storeMoves[this.index]
+            this.dmgDealt = 0
+            this.selectedMoveName = this.storeMoves[0]
         }
     }
 
@@ -91,7 +131,7 @@ class Character{
     healthBarHtml(){
         const percent = getPercentage(this.hp, this.maxHealth)
         return (`
-            <div class="hp-container"><span class="hp-bar" style = "width:${percent}%"></span></div>   
+            <div class="hp-container"><span class="hp-bar ${percent > 40 ? "green" : percent > 15 ? "orange" : "red"}" style = "width:${percent}%"></span></div>   
         `)
     }
 

@@ -24,41 +24,29 @@ let enemy = new Character(characterData[2])
 let isGame = false;
 let characterSelected = false;
 let playerTurn = false;
-
+let switchTurn = false
 // EVENT LISTENERS
 
 window.addEventListener("load",()=>{
-    let cardMenu = characterData.map((item)=>{
-        if(item.type === "hero"){
-        
-            return (`<div class="gc__card gc__card--styles gc-hover" id=${item.id}>
-                <div class="image-holder"><img src=${item.img} alt=${item.name} class="img"></div>
-                <div class="info-container">
-                    <span class="level">Level 10</span>
-                    <h2 class="card__name">${item.name}</h2>
-                    <p class="descriptor">${item.descriptor}</p>
-                </div>
-                
-                <section class="moves-container moves-select-page">
-                    <h3 class="moves-title">MOVES</h3>
-                    <span class="option">${item.moves[0].name}</span>
-                    <span class="option">${item.moves[1].name}</span>
-                </section>
-                </div>`)
-            }
-    
-    })
-    cardMenu = cardMenu.join("")
-    cardContainer.innerHTML = cardMenu
+   cardContainer.innerHTML = displayPage()
 })
 
 
 cardContainer.addEventListener("click",(e)=>{
     const targetCard = e.target.closest("div")
+    let initiateCard
     if(!targetCard || targetCard.id==="card-container") return
     unselectCards()
-    targetCard.classList.add("selected")
-    selectCard(targetCard.id)
+    if(targetCard.classList.contains("gc__card")){
+        targetCard.classList.add("selected")
+        initiateCard = targetCard
+    } 
+    else{
+        targetCard.parentElement.classList.add("selected")
+        initiateCard = targetCard.parentElement
+    }
+    console.log(initiateCard.id)
+    selectCard(initiateCard.id)
 })
 
 startBtn.addEventListener("click",()=>{
@@ -67,6 +55,7 @@ startBtn.addEventListener("click",()=>{
         firstPage.classList.add("hidden")
         render()
     }    
+    console.log("clicked")
 })
 
 
@@ -98,18 +87,18 @@ function attack(){
     if(playerTurn){
         enemy.takeDamage(chosenCharacter.damageDealt())
         battleDialogueHtml()
-        render()
         toggleBattleDialogue()
-        playerTurn = false
+        render()
+        
+        
         if(enemy.dead){
             endGame()
         } else if(!playerTurn){
             setTimeout(()=>{
                 chosenCharacter.takeDamage(enemy.damageDealt())
                 battleDialogueHtml()
-                render()
                 toggleBattleDialogue()
-                playerTurn = true
+                render()
                 if(chosenCharacter.dead){
                     endGame()
                 }
@@ -128,10 +117,10 @@ function battleDialogueHtml(){
 
 function toggleBattleDialogue(){
     if(playerTurn){
-        battleDialogue.classList.remove("hidden")
+        battleDialogue.classList.add("translate")
     } else { 
         setTimeout(()=>{
-            battleDialogue.classList.add("hidden")
+            battleDialogue.classList.remove("translate")
         },1800)
     }
     
@@ -142,6 +131,8 @@ function toggleBattleDialogue(){
  }
 
 function render(){
+    if(switchTurn){playerTurn = !playerTurn}
+    switchTurn = true
     gameContainer.style.height = "initial"
     gameContainer.innerHTML = `
                         <div class="gc--pagestyles" id="second-page">
@@ -163,21 +154,52 @@ function render(){
 function startGame(){
     isGame = true;
     playerTurn = true
-  
+}
+
+function displayPage(){
+    let cardMenu = characterData.map((item)=>{
+        if(item.type === "hero"){
+        
+            return (`<div class="gc__card gc__card--styles gc-hover" id=${item.id}>
+                <div class="image-holder"><img src=${item.img} alt=${item.name} class="img"></div>
+                <div class="info-container">
+                    <span class="level">Level 10</span>
+                    <h2 class="card__name">${item.name}</h2>
+                    <p class="descriptor">${item.descriptor}</p>
+                </div>
+                
+                <section class="moves-container moves-select-page">
+                    <h3 class="moves-title">MOVES</h3>
+                    <span class="option">${item.moves[0].name}</span>
+                    <span class="option">${item.moves[1].name}</span>
+                </section>
+                </div>`)
+            }
+    
+    })
+    cardMenu = cardMenu.join("")
+    return cardMenu
 }
 
 function endGame(){
     const endMessage = chosenCharacter.hp === 0  && enemy.hp === 0 ? 
     "No victors - everyone died" : chosenCharacter.hp > 0 ? "You win!" : "Bald Jawad Wins!"
-
     setTimeout(()=>{
         gameContainer.innerHTML = `
-                        <div class="gc--pagestyles">
+                        <div class="gc--pagestyles" id="end-pg">
                             <div class="gc__msgcontainer">
                                 <h1 class="endmessage">${endMessage}</h1>
-                                <img src=${chosenCharacter.img} alt=${chosenCharacter.id}class="img">
-                                <button class="play-again">Play Again!</button>
+                                <img src=${chosenCharacter.img} alt=${chosenCharacter.id} class="end-img">
+                                <button id="play-again">Play Again!</button>
                                 </div>
                          </div>`
-    },2000)
+       
+            const playAgain = document.getElementById("play-again")
+            playAgain.addEventListener("click",()=>{
+                    window.location.reload()
+            })
+    },1200)
+        
+
+     
 }
