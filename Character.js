@@ -10,9 +10,8 @@ class Character{
         this.storeAcc = [this.moves[0].acc,this.moves[1].acc]
         this.hit = false
         this.setAcc = 0
-        this
         this.selectedMoveName =""
-        
+        this.selected = false
     }
 
     setMovesHtml(){
@@ -46,6 +45,7 @@ class Character{
             this.dmgDealt = this.storeDmg[targetIndex]
             this.selectedMoveName = this.moves[targetIndex].name
             this.setAcc = this.moves[targetIndex].acc
+            this.selected = true;
             })
     }
 
@@ -77,12 +77,14 @@ class Character{
                 } else {return this.dmgDealt }
                 
             }
-        } else if(this.type==="hero"){
+        } else if(this.type==="hero" && this.selected){
             this.accuracy =  Math.random().toFixed(1)
             if(this.accuracy < this.setAcc){
                 this.hit = true
+                this.selected = false
                 return this.dmgDealt
             } else {
+                this.selected = false
                 this.hit = false
                 return 0
             }

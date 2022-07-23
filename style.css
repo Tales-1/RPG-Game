@@ -150,6 +150,7 @@ select {
 
 .btn_container{
     display: flex;
+    gap: 1em;
     align-self: flex-start;
     justify-content: center;
     height: 2em;
@@ -220,10 +221,10 @@ select {
 
 .image-holder{
     position: relative;
-    margin-top: 2.5em;
+    margin-top: 1.3em;
     display: flex;
     justify-content: center;
-    width: 50%;
+    width: 46%;
     aspect-ratio: 1/1;
     align-items: flex-start;
     background-color: #FFF;
@@ -233,7 +234,7 @@ select {
 .img{
     position: absolute;
     top: -1.3em;
-    width: 80%;
+    width: 95%;
 }
 
 .info-container{
@@ -241,7 +242,7 @@ select {
     width: 80%;
     flex-direction: column;
     text-align: center;
-    margin-block: .3em 1em;
+    margin-block: 0 1.2em;
 }
 
 .level{
@@ -280,7 +281,7 @@ select {
 .img-battle{
     margin-block: 1em;
     background-color: black;
-    width: 30%;
+    width: 32%;
     aspect-ratio: 1/1;
     object-fit: contain;
 }
@@ -379,6 +380,12 @@ select {
     box-shadow: 0 0 3px 5px blue,;
 }
 
+@media (min-width:500px){
+    .info-container{
+        font-size: 1.2em;
+        margin-top: 2em;
+    }
+}
 
 @media (min-width:800px){
 
@@ -417,6 +424,10 @@ select {
         gap: 0;
         height: 100vh;
 
+    }
+
+    .info-container{
+        margin-top: 1em;
     }
 
     .moves-battle-page{
@@ -470,7 +481,7 @@ select {
 }
 
 .end-img{
-    width: 40%;
+    width: 60%;
 }
 .translate{
     transform: translateY(0%);

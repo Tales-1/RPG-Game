@@ -22,11 +22,12 @@ const rightBtn = document.getElementById("rightBtn")
 // FLAGS
 
 let chosenCharacter;
-let enemy = new Character(characterData[2])
+let enemy = new Character(characterData[characterData.length-1])
 let isGame = false;
 let characterSelected = false;
 let playerTurn = false;
 let switchTurn = false
+let isDialogue = false
 // EVENT LISTENERS
 
 window.addEventListener("load",()=>{
@@ -142,7 +143,7 @@ function selectCard(card){
 
 
 function attack(){
-    if(playerTurn){
+    if(playerTurn && !isDialogue && chosenCharacter.selected){
         enemy.takeDamage(chosenCharacter.damageDealt())
         battleDialogueHtml()
         toggleBattleDialogue()
@@ -176,9 +177,11 @@ function battleDialogueHtml(){
 function toggleBattleDialogue(){
     if(playerTurn){
         battleDialogue.classList.add("translate")
+        isDialogue = true
     } else { 
         setTimeout(()=>{
             battleDialogue.classList.remove("translate")
+            isDialogue = false
         },1800)
     }
     
@@ -240,7 +243,7 @@ function displayPage(){
 
 function endGame(){
     const endMessage = chosenCharacter.hp === 0  && enemy.hp === 0 ? 
-    "No victors - everyone died" : chosenCharacter.hp > 0 ? "You win!" : "Bald Jawad Wins!"
+    "No victors - everyone died" : chosenCharacter.hp > 0 ? "You win!" : "You lose!"
     setTimeout(()=>{
         gameContainer.innerHTML = `
                         <div class="gc--pagestyles" id="end-pg">
