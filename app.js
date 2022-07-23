@@ -6,6 +6,8 @@ const startBtn = document.getElementById("start-game")
 const firstPage = document.getElementById("first-page")
 const battleDialogue = document.getElementById("battle-dialogue")
 
+const leftBtn = document.getElementById("leftBtn")
+const rightBtn = document.getElementById("rightBtn")
 // let secondPage = `
 //                 <div class="gc__secondpage>
 
@@ -29,6 +31,62 @@ let switchTurn = false
 
 window.addEventListener("load",()=>{
    cardContainer.innerHTML = displayPage()
+   const track = document.querySelector(".track")
+   const slides = Array.from(track.children)
+   let slideWidth = slides[0].getBoundingClientRect().width
+
+   const slidePosition = (slide, index)=>{
+   slide.style.left = slideWidth * index + "px";
+    };
+     slides.forEach(slidePosition); 
+
+   window.addEventListener("resize",()=>{
+    slideWidth = slides[0].getBoundingClientRect().width
+    slides.forEach(slidePosition); 
+   })
+   
+   
+    
+    
+    const moveSlide =(currentSlide, targetSlide, track)=>{
+        currentSlide.classList.remove("current-slide");
+        targetSlide.classList.add("current-slide");
+        track.style.transform = "translate(-" + targetSlide.style.left + ")";
+    }
+
+    const hideArrows = (slides, targetIndex) => {
+        if (targetIndex === 0 ){
+            leftBtn.classList.add("hidden");
+            rightBtn.classList.remove("hidden");
+        }
+        else if(targetIndex === slides.length-1){
+            rightBtn.classList.add("hidden");
+            leftBtn.classList.remove("hidden");
+        }
+        else{
+            rightBtn.classList.remove("hidden")
+            leftBtn.classList.remove("hidden")
+        }
+    }
+
+    rightBtn.addEventListener("click",()=>{
+        const currentSlide = track.querySelector(".current-slide");
+        const nextSlide = currentSlide.nextElementSibling;
+        const targetIndex = slides.findIndex(slide => slide === nextSlide);
+        moveSlide(currentSlide, nextSlide, track);
+        hideArrows(slides,targetIndex);
+    })
+
+    leftBtn.addEventListener("click", e =>{
+        const currentSlide = track.querySelector(".current-slide");
+        const previousSlide = currentSlide.previousElementSibling;
+        const targetIndex = slides.findIndex(slide => slide === previousSlide)
+        moveSlide(currentSlide, previousSlide, track);
+        hideArrows(slides,targetIndex);
+        
+    });
+
+
 })
 
 
@@ -160,14 +218,13 @@ function displayPage(){
     let cardMenu = characterData.map((item)=>{
         if(item.type === "hero"){
         
-            return (`<div class="gc__card gc__card--styles gc-hover" id=${item.id}>
+            return (`<div class="gc__card gc__card--styles gc-hover ${item.current && "current-slide"}" id=${item.id}>
                 <div class="image-holder"><img src=${item.img} alt=${item.name} class="img"></div>
                 <div class="info-container">
                     <span class="level">Level 10</span>
                     <h2 class="card__name">${item.name}</h2>
                     <p class="descriptor">${item.descriptor}</p>
                 </div>
-                
                 <section class="moves-container moves-select-page">
                     <h3 class="moves-title">MOVES</h3>
                     <span class="option">${item.moves[0].name}</span>
