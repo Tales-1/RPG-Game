@@ -110,10 +110,6 @@ select {
    height: 95vh;
 }
 
-#second-page{
-   
-}
-
 .gc__track-container{
     position: relative;
     height: 100%;
@@ -143,6 +139,8 @@ select {
 .gc__cardcontainer--active{
   display: flex;
   gap: .5em;
+  width: 80%;
+  max-width: 280px;
   flex-direction: column;
   align-items: center;
   justify-content: center;
@@ -371,6 +369,7 @@ select {
     display: grid;
     place-items: center;
     top: 0;
+    z-index: 100;
     padding-inline: 1em;
     text-align: center;
     width: 80%;
@@ -397,7 +396,8 @@ select {
     .gc__cardcontainer--active{
         flex-direction: row;
         gap: 5em;
-        justify-content: space-between;
+        max-width: 1000px;
+        justify-content: center;
         
     }
 
@@ -421,6 +421,7 @@ select {
 
     .moves-battle-page{
         display: flex;
+        font-size: 1.3em;
         gap: .5em;
     }
 
@@ -434,6 +435,9 @@ select {
 
     .descriptor{
         font-size: 1em;
+    }
+    .hp-number{
+        font-size: 1.4em;
     }
 }
 
