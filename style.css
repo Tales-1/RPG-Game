@@ -44,7 +44,7 @@ body {
   min-height: 100vh;
   text-rendering: optimizeSpeed;
   line-height: 1.5;
-  font-size: clamp(16px,2vw,22px);
+  font-size: 16px;
   font-family: 'MedievalSharp', cursive;
   
   
@@ -99,15 +99,15 @@ select {
 
 .gc--pagestyles{
     display: grid;
+    grid-template-rows: repeat(4,auto);
     place-items: center;
     gap: 2em;
     
 }
 
 #first-page{
-    height: 100vh;
     margin-top: .3em;
-   
+   height: 95vh;
 }
 
 #second-page{
@@ -149,17 +149,21 @@ select {
   margin-bottom: 4em;
   
 }
-#rightBtn{
-    position: absolute;
-    right: 30%;
-    top: 50%;
+
+.btn_container{
+    display: flex;
+    align-self: flex-start;
+    justify-content: center;
+    height: 2em;
+    width: 50%;
+}
+/* #rightBtn{
+
 }
 #leftBtn{
-    position: absolute;
-    top: 50%;
-    left: 30%;
+
    
-}
+} */
 
 /* CARD STYLES */
 
@@ -189,7 +193,6 @@ select {
 .gc__card--styles{
     font-family: 'Crete Round', serif;
     color:white;
-    
     border-radius: 1em;
     background: #231d24;
     box-shadow: 0px 0px 40px #fff;
@@ -222,7 +225,7 @@ select {
     margin-top: 2.5em;
     display: flex;
     justify-content: center;
-    width: 60%;
+    width: 50%;
     aspect-ratio: 1/1;
     align-items: flex-start;
     background-color: #FFF;
@@ -232,7 +235,7 @@ select {
 .img{
     position: absolute;
     top: -1.3em;
-    width: 90%;
+    width: 80%;
 }
 
 .info-container{
@@ -266,7 +269,7 @@ select {
 
 .card__name{
     font-family: 'Bangers', cursive;
-    font-size: clamp(1.3em, 2vw, 1.6em);
+    font-size: 1.3em;
     letter-spacing: 4px;
 }
 
@@ -300,7 +303,7 @@ select {
     width: 100%;
     background-color: #df5353;
     font-size: .9em;
-    padding: 1em;
+    padding: .5em;
     gap: .3em;
 }
 
@@ -382,7 +385,7 @@ select {
 
 
     .gc--pagestyles{
-        gap: 0em;
+        gap: 2em;
   
     }
     .gc__cardcontainer{
@@ -425,6 +428,13 @@ select {
         padding:.5em .2em 1.2em;
     }
 
+    .card__name{
+        font-size: 2.3em;
+    }
+
+    .descriptor{
+        font-size: 1em;
+    }
 }
 
 
@@ -435,8 +445,11 @@ select {
 
 
 #start-game{
+    position: relative;
+    bottom: 3em;
+    align-self: flex-start;
     padding: .5em;
-    margin-bottom: 3em;
+    margin-bottom: 8sem;
     height: fit-content;
 }
 
