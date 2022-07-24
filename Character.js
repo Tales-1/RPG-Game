@@ -250,6 +250,10 @@ class Character{
         const healthBar = this.healthBarHtml()
         const displayMoves = this.setMovesHtml()
         const displayResources = this.setResourcesHtml()
+        const displayTabs = `<div class="tab-container">
+                <span class="tab" id="tab-moves"><img src="./imgs/moveicons/sword.png" alt="image of sword" class="battle-icon"></span>
+                <span class="tab" id="tab-res"><img src="./imgs/moveicons/pouch.png" alt="image of pouch" class="battle-icon"></span>
+            </div>`
         return `
                     <div class="gc__card--active gc__card--styles" id=${id}>
                             <strong class="card__name gc--white">${name}</strong>
@@ -263,10 +267,7 @@ class Character{
                                 <div class="resources-battle-page hidden">
                                     ${displayResources}
                                 </div>
-                                <div class="tab-container">
-                                    <span class="tab" id="tab-moves">Moves</span>
-                                    <span class="tab" id="tab-res">Res</span>
-                                </div>
+                                ${type === "hero" ? displayTabs : ""}
                             </section>
                     </div>
                     `

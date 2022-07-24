@@ -188,8 +188,8 @@ border: none;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    min-width: 200px;
-    max-width: 400px;
+    min-width: 300px;
+    max-width: 450px;
     width: 90%;
     border-radius: 1em;
     padding-block: 1em;
@@ -332,15 +332,17 @@ border: none;
 
 .tab-container{
     display: flex;
+    flex-direction: column;
+    align-items: end;
     position: absolute;
-    right: -4.5em;
-    top: 4.5em;
-    transform: rotateZ(90deg);
+    top: -8em;
+    right: 0em;
+    width: 15%;
+    min-width: 30px;
 }
 
 .tab{
     background: #231d24;
-    border-radius: .5em .5em 0 0;
     padding: .3em .6em;
     cursor: pointer;
 }
