@@ -39,7 +39,7 @@ class Character{
     setResourcesHtml(){
         if(this.type==="hero"){
         let resourceHtml = this.resources.map((res)=>{
-            return (` <span class="tab option option--flex">${res.name}<p class="move-info">${res.info}</p>
+            return (` <span class="option option--flex">${res.name}<p class="move-info">${res.info}</p>
                     <aside class="move-stats">
                     Qty: ${res.quantity}
                     
@@ -206,6 +206,7 @@ class Character{
     useItem(){
         if(this.res){
             if(this.setRes.type === "heal" && !this.buffer){
+                console.log("healing")
                 this.hp += this.setRes.stat
                 if(this.hp>this.maxHealth){
                     this.hp = this.maxHealth
@@ -251,7 +252,7 @@ class Character{
         const displayMoves = this.setMovesHtml()
         const displayResources = this.setResourcesHtml()
         const displayTabs = `<div class="tab-container">
-                <span class="tab" id="tab-moves"><img src="./imgs/moveicons/sword.png" alt="image of sword" class="battle-icon"></span>
+                <span class="tab selected" id="tab-moves"><img src="./imgs/moveicons/sword.png" alt="image of sword" class="battle-icon"></span>
                 <span class="tab" id="tab-res"><img src="./imgs/moveicons/pouch.png" alt="image of pouch" class="battle-icon"></span>
             </div>`
         return `

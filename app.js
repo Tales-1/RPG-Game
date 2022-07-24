@@ -22,7 +22,10 @@ const rightBtn = document.getElementById("rightBtn")
 // FLAGS
 
 let chosenCharacter;
-let enemy = new Character(characterData[characterData.length-1])
+let enemies = characterData.filter(char=>char.type === "enemy")
+let enemy = new Character(enemies.shift())
+console.log(enemy)
+
 let isGame = false;
 let characterSelected = false;
 let playerTurn = false;
@@ -110,7 +113,8 @@ cardContainer.addEventListener("click",(e)=>{
 
 startBtn.addEventListener("click",()=>{
     if(characterSelected){
-        startGame()
+        toggleFlags()
+        console.log(enemies)
         firstPage.classList.add("hidden")
         render()
     }    
@@ -149,7 +153,13 @@ function attack(){
         toggleBattleDialogue()
         render()
         if(enemy.dead){
-            endGame()
+            if(enemies.length > 0 ){
+                setTimeout(()=>{
+                    enemy = new Character(enemies.shift())
+                    toggleBattleDialogue()
+                    render()
+                },1500)
+            } else { endGame()}
         } else if(!playerTurn){
             setTimeout(()=>{
                 chosenCharacter.takeDamage(enemy.damageDealt())
@@ -221,8 +231,10 @@ function render(){
                         <h1 class="gc__title gc--white">${playerTurn ? "Your Turn" : "Enemy turn"}</h1>
                           <div class="gc__cardcontainer--active">
                              ${chosenCharacter.cardHtml()}
+                             <div class="flex">
                              <button class="attack">Attack</button>
                              <button class="use-item">Use Item</button>
+                             </div>
                              ${enemy.cardHtml()}
                             </div>
                            
@@ -236,7 +248,7 @@ function render(){
 }
 
 
-function startGame(){
+function toggleFlags(){
     isGame = true;
     playerTurn = true
 }

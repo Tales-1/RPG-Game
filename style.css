@@ -156,6 +156,7 @@ select {
     height: 2em;
     width: 50%;
 }
+
 #rightBtn{
 background: none;
 border: none;
@@ -170,6 +171,8 @@ border: none;
     font-size: 2em;
     cursor: pointer;
 }
+
+
 /* CARD STYLES */
 
 .gc__card{
@@ -189,8 +192,8 @@ border: none;
     justify-content: center;
     align-items: center;
     min-width: 300px;
-    max-width: 450px;
-    width: 90%;
+    max-width: 500px;
+    width: 100%;
     border-radius: 1em;
     padding-block: 1em;
 }
@@ -249,7 +252,7 @@ border: none;
     flex-direction: column;
     text-align: center;
     margin-block: 0 1.2em;
-    font-size: 1.1em;
+    font-size: 1.3em;
 }
 
 .level{
@@ -342,7 +345,7 @@ border: none;
 }
 
 .tab{
-    background: #231d24;
+    box-shadow: 0px 0px 5px 1px #fff;
     padding: .3em .6em;
     cursor: pointer;
 }
@@ -421,14 +424,15 @@ border: none;
     box-shadow: 0 0 3px 5px blue,;
 }
 
-@media (min-width:500px){
+
+@media (min-width:450px){
     .info-container{
-        font-size: 1.2em;
-        margin-top: 2em;
+        font-size: 1.5em;
+        margin-top: .2em;
     }
 }
 
-@media (min-width:800px){
+@media (min-width:900px){
 
 
     .gc--pagestyles{
@@ -443,8 +447,9 @@ border: none;
 
     .gc__cardcontainer--active{
         flex-direction: row;
-        gap: 5em;
-        max-width: 1000px;
+        gap: 3em;
+        width: 100%;
+        max-width: 1400px;
         justify-content: center;
         
     }
@@ -452,7 +457,10 @@ border: none;
     .img-battle{
         width: 40%;
     }
-
+    .moves-select-page{
+        font-size: 1.1em;
+        padding-block: 1em;
+    }
     
     .option--flex{
         padding-bottom: 30px;
@@ -462,12 +470,13 @@ border: none;
     }
     
     #second-page{
-        gap: 0;
+        justify-content: center;
         height: 100vh;
 
     }
 
     .info-container{
+        font-size: 1.2em;
         margin-top: 1em;
     }
 
@@ -496,6 +505,8 @@ border: none;
     .hp-number{
         font-size: 1.4em;
     }
+
+    
 }
 
 
@@ -587,4 +598,14 @@ border: none;
     text-align: center;
     font-size: clamp(2.5rem,4vw,5rem);
     color: white;
+}
+
+.flex{
+    display:flex;
+    gap: 1em;
+}
+
+.flex > * {
+    width: 75px;
+    padding: .2em;
 }
