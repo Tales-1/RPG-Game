@@ -143,13 +143,11 @@ function selectCard(card){
 
 
 function attack(){
-    if(playerTurn && !isDialogue && chosenCharacter.selected){
+    if(playerTurn && !isDialogue && chosenCharacter.moveSelected){
         enemy.takeDamage(chosenCharacter.damageDealt())
         battleDialogueHtml()
         toggleBattleDialogue()
         render()
-        
-        
         if(enemy.dead){
             endGame()
         } else if(!playerTurn){
@@ -162,6 +160,29 @@ function attack(){
                     endGame()
                 }
             },1500)
+    }
+    
+}}
+
+function useItem(){
+    if(chosenCharacter.setRes.quantity && !chosenCharacter.buffer){
+        if(playerTurn && !isDialogue && chosenCharacter.itemSelected ){
+            console.log(chosenCharacter.buffer)
+            chosenCharacter.useItem()
+            battleDialogueHtml()
+            toggleBattleDialogue()
+            render()
+           if(!playerTurn){
+                setTimeout(()=>{
+                    chosenCharacter.takeDamage(enemy.damageDealt())
+                    battleDialogueHtml()
+                    toggleBattleDialogue()
+                    render()
+                    if(chosenCharacter.dead){
+                        endGame()
+                    }
+                },1500)
+        }
     }
     
 }}
@@ -201,13 +222,16 @@ function render(){
                           <div class="gc__cardcontainer--active">
                              ${chosenCharacter.cardHtml()}
                              <button class="attack">Attack</button>
+                             <button class="use-item">Use Item</button>
                              ${enemy.cardHtml()}
                             </div>
                            
                          </div>`
     selectMove()
     const attackBtn = document.querySelector(".attack")
+    const useItemBtn = document.querySelector(".use-item")
     attackBtn.addEventListener("click",attack)
+    useItemBtn.addEventListener("click",useItem)
 
 }
 

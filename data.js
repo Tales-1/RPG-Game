@@ -9,6 +9,7 @@ const characterData = [
         current:true,
         img:"./imgs/baldabid.png",
         moves:[{name:"Shiny Headbutt", dmg:8, info:"Bald Abid harnesses the power of the sun onto his head and headbutts his opponent",acc:0.9},{name:"Batchelor's Kiss", dmg:14,info:"Bald Abid sends a flying kiss to his target",acc:0.6}],
+        resources:[{name:"Potion",type:"heal",info:"Recovers 15 hp",stat:15,quantity:3},{name:"Fortifying syrup",type:"def", info:"Reduces incoming damage by 5 for the next 3 turns. Cooldown: 3 turns",stat:5, quantity:2,}]
         
     },
     {
@@ -21,6 +22,8 @@ const characterData = [
         current:false,
         img:"./imgs/hamzahbald(1).png",
         moves:[{name:"Shiny Forehead", dmg:8, info:"Bald Hamzah harnesses the power of the sun onto his forehead and headbutts his opponent", acc:0.9},{name:"Me ne bola", dmg:14,info:"Bald Hamzah shatters his targets ears with his urdu accent",acc:0.6}],
+        resources:[{name:"Potion",itype:"heal",info:"Recovers 15 hp",stat:15,quantity:3},{name:"Fortifying syrup",type:"def", info:"Reduces incoming damage by 5 for the next 3 turns. Cooldown: 3 turns",stat:5, quantity:2,}]
+        
         
     },
     {
@@ -33,6 +36,7 @@ const characterData = [
         current:false,
         img:"./imgs/munty-final.png",
         moves:[{name:"Get 'Em Milo!", dmg:8, info:"Funky Munty hurls Milo at the enemy who unleashes his claws", acc:0.9},{name:"Run 'Em Over", dmg:14,info:"Funky Munty jumps into his Jaguar and runs over his target.",acc:0.5}],
+        resources:[{name:"Potion",type:"heal",info:"Recovers 15 hp",stat:15,quantity:3},{name:"Fortifying syrup",type:"def", info:"Reduces incoming damage by 5 for the next 3 turns. Cooldown: 3 turns",stat:5, quantity:2, }]
         
     },
     {
@@ -45,6 +49,7 @@ const characterData = [
         current:false,
         img:"./imgs/jay-fin.png",
         moves:[{name:"Big Fish Attack", dmg:8,info:"Hairy Jawad throws an extra large Masala Fish at his target", acc:0.8},{name:"Fwem Fwem Fresh",info:"Do you really need info for this move?", dmg:14,acc:0.5}],
+        resources:[{name:"Potion",type:"heal",info:"Recovers 15 hp",stat:15,quantity:3},{name:"Fortifying syrup",type:"def", info:"Reduces incoming damage by 5 for the next 3 turns. Cooldown: 3 turns", stat:5, quantity:2, }]
     },
     {
         id:"enemy-maryam",
@@ -55,7 +60,8 @@ const characterData = [
         selected:false,
         current:false,
         img:"./imgs/evilmary.png",
-        moves:[{name:"Nag", dmg:8,info:"", acc:0.8},{name:"Rey Mysterio 619",info:"", dmg:17,acc:0.6}],
+        moves:[{name:"Nag", dmg:8,info:"", acc:1},{name:"Rey Mysterio 619",info:"", dmg:17,acc:0.1}],
+        resources:[{},{}]
     },
 ]
 

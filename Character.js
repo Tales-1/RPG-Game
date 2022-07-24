@@ -8,34 +8,78 @@ class Character{
         this.storeDmg = [this.moves[0].dmg,this.moves[1].dmg]
         this.storeMoves = [this.moves[0].name,this.moves[1].name]
         this.storeAcc = [this.moves[0].acc,this.moves[1].acc]
+        this.storeRes = [this.resources[0].stat,this.resources[1].stat]
         this.hit = false
+        this.dmgDealt = 0
         this.setAcc = 0
         this.selectedMoveName =""
-        this.selected = false
+        this.setRes = {}
+        this.moveSelected = false
+        this.itemSelected = false;
+        this.res = false
+        this.attack = false
+        this.countDown = 3
+        this.reduce = false;
+        this.buffer = false;
     }
 
     setMovesHtml(){
-        return ( `
-        <span class="option option--flex">${this.moves[0].name} <p class="move-info">${this.moves[0].info}</p>
-        <aside class="move-stats">
-        <img src="./imgs/moveicons/accuracy.png" alt="damage-icon" class="dmg-icon">${this.moves[0].acc*100}%
-        <img src="./imgs/moveicons/damage.png" alt="damage-icon" class="dmg-icon margin-l">${this.moves[0].dmg}</aside>
-        </span>
-        
-        <span class="option option--flex">${this.moves[1].name} <p class="move-info">${this.moves[1].info} </p>
-        <aside class="move-stats">
-        <img src="./imgs/moveicons/accuracy.png" alt="damage-icon" class="dmg-icon">${this.moves[1].acc * 100}%
-        <img src="./imgs/moveicons/damage.png" alt="damage-icon" class="dmg-icon  margin-l">${this.moves[1].dmg}</aside>
-        </span>
-        `)
+        let movesHtml = this.moves.map((move)=>{
+            return ( `
+            <span class="option option--flex">${move.name} <p class="move-info">${move.info}</p>
+            <aside class="move-stats">
+            <img src="./imgs/moveicons/accuracy.png" alt="damage-icon" class="dmg-icon">${move.acc*100}%
+            <img src="./imgs/moveicons/damage.png" alt="damage-icon" class="dmg-icon margin-l">${move.dmg}</aside>
+            </span>`)
+        })
+        movesHtml = movesHtml.join("")
+        return movesHtml
     }
+
+    setResourcesHtml(){
+        if(this.type==="hero"){
+        let resourceHtml = this.resources.map((res)=>{
+            return (` <span class="tab option option--flex">${res.name}<p class="move-info">${res.info}</p>
+                    <aside class="move-stats">
+                    Qty: ${res.quantity}
+                    
+                    </aside>
+                    </span>
+            
+            `)
+        
+         })
+        resourceHtml = resourceHtml.join("")
+        return resourceHtml}
+    }
+
 
     selectOpt(){
         const moves = document.querySelector(".moves-battle-page")
+        const resources = document.querySelector(".resources-battle-page")
+        const resChildren = Array.from(resources.children)
+        const movesChildren = Array.from(moves.children)
+
+        resources.addEventListener("click",(e)=>{
+            const targetOption = e.target.closest("span")
+            if(!targetOption) return
+            resChildren.forEach((option)=>{
+                option.classList.remove("selected")
+            })
+            targetOption.classList.add("selected")
+            const targetIndex = resChildren.findIndex(res=>res === targetOption)
+            if(!this.buffer){
+                this.setRes = this.resources[targetIndex]
+            }
+            console.log(this.setRes)
+            this.attack = false
+            this.res = true
+            this.itemSelected = true
+        })
+
         moves.addEventListener("click",(e)=>{
             const targetOption = e.target.closest("span")
             if(!targetOption) return
-            const movesChildren = Array.from(moves.children)
             movesChildren.forEach((option)=>{
                 option.classList.remove("selected")
             })
@@ -45,15 +89,51 @@ class Character{
             this.dmgDealt = this.storeDmg[targetIndex]
             this.selectedMoveName = this.moves[targetIndex].name
             this.setAcc = this.moves[targetIndex].acc
-            this.selected = true;
+            this.res = false
+            this.attack = true
+            this.moveSelected = true;
             })
+
+            this.switchTabs(moves,resources)
+    }
+
+    switchTabs(moves,res){
+        const tabContainer = document.querySelector(".tab-container")
+        const tabs = Array.from(tabContainer.children)
+        let mvs = Array.from(moves.children)
+        let rs = Array.from(res.children)
+
+        tabContainer.addEventListener("click",e => { 
+            const targetOption = e.target.closest("span")
+            if(!targetOption) return
+            tabs.forEach((tab,index)=>{
+                tab.classList.remove("selected")
+                if(targetOption.id === "tab-res"){
+                    moves.classList.add("hidden")
+                    res.classList.remove("hidden")
+                    mvs.forEach(option => option.classList.remove("selected"))
+                    this.moveSelected = false
+                } else {
+                    moves.classList.remove("hidden")
+                    res.classList.add("hidden")
+                    rs.forEach(option => option.classList.remove("selected"))
+                    this.itemSelected = false
+                 }
+            })
+            targetOption.classList.add("selected")
+        })
     }
 
     battleDialogueHtml(){
-        if((this.type ==="enemy" && !this.hit) || (this.type === "hero" && !this.hit)){
+        if(this.res){
+            if(this.type==="hero"){return `${this.name} used ${this.setRes.name}`}
+            // else if(this.setRes.type === "def" && this.reduce){return `${this.name} used ${this.selectedMoveName}, it did  damage!`}
+        }
+        else if((this.type ==="enemy" && !this.hit) || (this.type === "hero" && !this.hit)){
            return `${this.name} used ${this.selectedMoveName}, it missed!`
-        } else{return `${this.name} used ${this.selectedMoveName}, it did ${this.dmgDealt} damage!`}
-        
+        } 
+        else  {
+            return `${this.name} used ${this.selectedMoveName}, it did ${this.dmgDealt} damage!`}
     }
     
     damageDealt(){
@@ -77,21 +157,22 @@ class Character{
                 } else {return this.dmgDealt }
                 
             }
-        } else if(this.type==="hero" && this.selected){
-            this.accuracy =  Math.random().toFixed(1)
-            if(this.accuracy < this.setAcc){
+        } else if(this.type==="hero" && this.moveSelected){
+            this.accuracy =  Math.random()
+            console.log(this.accuracy)
+            if(this.accuracy <= this.setAcc){
                 this.hit = true
-                this.selected = false
+                this.moveSelected = false
                 return this.dmgDealt
             } else {
-                this.selected = false
+                this.moveSelected = false
                 this.hit = false
                 return 0
             }
         }
     }
 
-
+  
 
     randomiseMove(){
         // Select random move for computer
@@ -122,12 +203,39 @@ class Character{
         }
     }
 
+    useItem(){
+        if(this.res){
+            if(this.setRes.type === "heal" && !this.buffer){
+                this.hp += this.setRes.stat
+                if(this.hp>this.maxHealth){
+                    this.hp = this.maxHealth
+                }
+                this.setRes.quantity--
+            } 
+            else if(this.setRes.type ==="def"){
+                this.buffer = true
+                this.reduce = true
+                this.setRes.quantity--
+            }
+        } 
+    }
+
     takeDamage(attackMove){
-        this.hp-=attackMove
+        if(this.reduce && this.countDown > 0){
+            if(attackMove === 0) return
+            this.hp = (this.hp + this.setRes.stat) - attackMove 
+            this.countDown--
+        } else {
+            this.hp-=attackMove
+            this.reduce = false;
+            this.buffer = false
+            this.countDown = 3
+        }
+        
         if(this.hp<=0){
             this.dead = true
             this.hp = 0
-        }
+        } 
     }
 
     healthBarHtml(){
@@ -141,14 +249,24 @@ class Character{
         const {name,type,img,moves,id} = this
         const healthBar = this.healthBarHtml()
         const displayMoves = this.setMovesHtml()
+        const displayResources = this.setResourcesHtml()
         return `
                     <div class="gc__card--active gc__card--styles" id=${id}>
                             <strong class="card__name gc--white">${name}</strong>
                             <img src=${img} alt="Bald abid" class="img-battle">
                             <p class="hp-number">health : ${this.hp}</p>
                             ${healthBar}
-                            <section class="moves-battle-page">
-                                    ${type === "hero" ? displayMoves : ""}
+                            <section class="battle-menu">
+                                <div class="moves-battle-page">
+                                        ${type === "hero" ? displayMoves : ""}
+                                </div>
+                                <div class="resources-battle-page hidden">
+                                    ${displayResources}
+                                </div>
+                                <div class="tab-container">
+                                    <span class="tab" id="tab-moves">Moves</span>
+                                    <span class="tab" id="tab-res">Res</span>
+                                </div>
                             </section>
                     </div>
                     `

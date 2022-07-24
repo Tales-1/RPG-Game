@@ -150,20 +150,26 @@ select {
 
 .btn_container{
     display: flex;
-    gap: 1em;
+    gap: 3em;
     align-self: flex-start;
     justify-content: center;
     height: 2em;
     width: 50%;
 }
-/* #rightBtn{
-
+#rightBtn{
+background: none;
+border: none;
 }
 #leftBtn{
-
+    background: none;
+    border: none;
    
-} */
-
+} 
+.fa-solid{
+    color: white;
+    font-size: 2em;
+    cursor: pointer;
+}
 /* CARD STYLES */
 
 .gc__card{
@@ -243,6 +249,7 @@ select {
     flex-direction: column;
     text-align: center;
     margin-block: 0 1.2em;
+    font-size: 1.1em;
 }
 
 .level{
@@ -317,10 +324,41 @@ select {
     transform: translate(50%);
 }
 
+.battle-menu{
+    position: relative;
+    display: flex;
+    justify-content: center;
+}
+
+.tab-container{
+    display: flex;
+    position: absolute;
+    right: -4.5em;
+    top: 4.5em;
+    transform: rotateZ(90deg);
+}
+
+.tab{
+    background: #231d24;
+    border-radius: .5em .5em 0 0;
+    padding: .3em .6em;
+    cursor: pointer;
+}
+
+
+
 .moves-battle-page{
     flex-direction: column;
     width: 80%;
     color:black;
+}
+
+.resources-battle-page{
+    position: absolute;
+    margin-inline: auto;
+    width: 80%;
+    padding-bottom: 15px;
+ 
 }
 
 
@@ -328,16 +366,17 @@ select {
 .option{
     position: relative;
     color: white;
-    font-size: 1em;
-    margin-top: 1em;
+    margin-top: .8em;
     width: 100%;
     
 }
 
 .option--flex{
     display: flex;
-    padding-bottom: 20px;
+    padding-inline:3px;
+    padding-bottom: 1.2em;
     flex-direction: column;
+    border-radius: .6em;
     width: 100%;
 }
 
@@ -435,6 +474,11 @@ select {
         font-size: 1.3em;
         gap: .5em;
     }
+   
+    .resources-battle-page{
+        font-size: 1.3em;
+        gap:.5em;
+    }
 
     .moves-battle-page > * {
         padding:.5em .2em 1.2em;
@@ -489,7 +533,6 @@ select {
 
 .hp-container{
     height: 6px;
-    margin-top: 1em;
     width: 70%;
     border: 1px solid black;
     overflow: hidden;
@@ -517,7 +560,6 @@ select {
 
 .hp-number{
     position: relative;
-    top:.7em;
     color: white;
 }
 
