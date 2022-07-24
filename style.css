@@ -257,6 +257,8 @@ border: none;
 
 .level{
     position: relative;
+    display: flex;
+    justify-content: center;
     margin-bottom: 1em;
     color:rgb(203, 217, 235);
     font-weight: bold;

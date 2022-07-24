@@ -156,9 +156,10 @@ function attack(){
             if(enemies.length > 0 ){
                 setTimeout(()=>{
                     enemy = new Character(enemies.shift())
+                    chosenCharacter.hp+=10
                     toggleBattleDialogue()
                     render()
-                },1500)
+                },2000)
             } else { endGame()}
         } else if(!playerTurn){
             setTimeout(()=>{
@@ -213,7 +214,7 @@ function toggleBattleDialogue(){
         setTimeout(()=>{
             battleDialogue.classList.remove("translate")
             isDialogue = false
-        },1800)
+        },3000)
     }
     
 }
@@ -260,7 +261,7 @@ function displayPage(){
             return (`<div class="gc__card gc__card--styles gc-hover ${item.current && "current-slide"}" id=${item.id}>
                 <div class="image-holder"><img src=${item.img} alt=${item.name} class="img"></div>
                 <div class="info-container">
-                    <span class="level">Level 10</span>
+                    <span class="level"><span>Level 10</span></span>
                     <h2 class="card__name">${item.name}</h2>
                     <p class="descriptor">${item.descriptor}</p>
                 </div>
