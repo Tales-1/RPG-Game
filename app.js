@@ -2,10 +2,10 @@ const heroAbid = document.getElementById("hero-abid")
 const heroHamzah = document.getElementById("hero-hamzah")
 const gameContainer = document.getElementById("game-container")
 const cardContainer = document.getElementById("card-container")
-const startBtn = document.getElementById("start-game")
+// const startBtn = document.getElementById("start-game")
+const continueBtn = document.getElementById("continue")
 const firstPage = document.getElementById("first-page")
 const battleDialogue = document.getElementById("battle-dialogue")
-
 const leftBtn = document.getElementById("leftBtn")
 const rightBtn = document.getElementById("rightBtn")
 // let secondPage = `
@@ -123,16 +123,36 @@ window.addEventListener("load",()=>{
     })
 })
 
-
-startBtn.addEventListener("click",()=>{
+continueBtn.addEventListener("click",()=>{
     if(characterSelected){
         toggleFlags()
-        console.log(enemies)
-        firstPage.classList.add("hidden")
-        render()
-    }    
-    console.log("clicked")
+        displayMap()
+        let circles = document.querySelectorAll(".circle")
+        stagesArray.forEach((stage,index)=>{
+            if(stage){
+                circles[index].addEventListener("click",()=>{
+                    mapObject.selected = true
+                    mapObject.level = index + 1
+                    circles.forEach(circle => circle.classList.remove("selected"))
+                    circles[index].classList.add("selected")
+                    console.log(circles[index])
+                })
+
+            }
+        })
+        const startBtn = document.getElementById("start-game")
+        startBtn.addEventListener("click",()=>{
+            if(characterSelected && mapObject.selected){
+                render()
+            }    
+            console.log("clicked")
+        })
+    }
+
 })
+
+
+
 
 
 
@@ -257,6 +277,10 @@ function render(){
     attackBtn.addEventListener("click",attack)
     useItemBtn.addEventListener("click",useItem)
 
+}
+
+function displayMap(){
+    gameContainer.innerHTML = mapHtml
 }
 
 
