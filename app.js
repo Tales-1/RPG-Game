@@ -133,8 +133,8 @@ continueBtn.addEventListener("click",()=>{
                 circles[index].addEventListener("click",()=>{
                     mapObject.selected = true
                     mapObject.level = index + 1
-                    circles.forEach(circle => circle.classList.remove("selected"))
-                    circles[index].classList.add("selected")
+                    circles.forEach(circle => circle.classList.remove("selected-lock"))
+                    circles[index].classList.add("selected-lock")
                     console.log(circles[index])
                 })
 
@@ -184,14 +184,15 @@ function attack(){
         toggleBattleDialogue()
         render()
         if(enemy.dead){
-            if(enemies.length > 0 ){
-                setTimeout(()=>{
-                    enemy = new Character(enemies.shift())
-                    chosenCharacter.hp+=10
-                    toggleBattleDialogue()
-                    render()
-                },2000)
-            } else { endGame()}
+            endGame()
+            // if(enemies.length > 0 ){
+            //     setTimeout(()=>{
+            //         enemy = new Character(enemies.shift())
+            //         chosenCharacter.hp+=10
+            //         toggleBattleDialogue()
+            //         render()
+            //     },2000)
+            // } else { }
         } else if(!playerTurn){
             setTimeout(()=>{
                 chosenCharacter.takeDamage(enemy.damageDealt())

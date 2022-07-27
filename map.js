@@ -1,5 +1,5 @@
 
-let stagesArray = new Array(8).fill(false)
+let stagesArray = new Array(9).fill(false)
 stagesArray[0] = true
 
 const mapObject = {
@@ -8,8 +8,9 @@ const mapObject = {
 }
 function displayStages(){
     let stagesHtml = stagesArray.map((stage,index)=>{
-        return `<div class ="circle">
-                    ${index}
+        return `<div class ="circle ${ stage ? "open" : "locked"}">
+                    <img src="./imgs/lock-${stage ? "open" : "closed"}.png" alt="padlock" class="lock-img">
+                    <span class="lock-number">${index + 1}</span>
                 </div>
         `
     })

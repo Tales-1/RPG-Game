@@ -4,6 +4,8 @@
     --bg_card: #FD6644;
     --bg_card-orange:#FFB342;
     --font_bangers:'Bangers', cursive;
+    --bg_dark:#485461;
+    --bg_img-color:linear-gradient(315deg, #485461 0%, #28313b 74%);
 }
 
 /* Box sizing rules */
@@ -338,7 +340,7 @@ border: none;
     display: flex;
     width: 80%;
     margin: 3em 0 0 1em;
-    font-size: 1.3em;
+    font-size: 1m;
     gap: 2em;
 }
 
@@ -690,7 +692,7 @@ border: none;
 
 #continue{
     position: relative;
-    bottom: 8em;
+    bottom: 3em;
     align-self: flex-start;
     padding: .5em;
     margin-bottom: 8sem;
@@ -793,6 +795,9 @@ border: none;
     align-items: center;
     flex-direction: column;
     height: 100vh;
+    background: var(--bg_dark);
+    background-image: var(--bg_img-color);
+
 }
 
 .map{
@@ -803,31 +808,70 @@ border: none;
 .circle_container{
     display: flex;
     justify-content: center;
+    background-color: #f1dfd1;
+    background-image: linear-gradient(315deg, #f1dfd1 0%, #f6f0ea 74%);
+    padding: 1em;
     flex-flow: row wrap;
     margin-inline: auto;
-    gap: 1em;
+    gap: 2em;
     width: 80%;
     max-width: 700px;
+    border-radius: 1.5em;
 }
 
 .circle{
     position: relative;
-    width: 50px;
+    width: 100%;
+    max-width: 100px;
     aspect-ratio: 1/1;
     display: grid;
     place-items: center;
     border-radius: 50%;
+    z-index: 3;
 }
 
-.circle::after{
-    content: '';
+.lock-number{
     position: absolute;
-    bottom: -20px;
-    width: 100%;
+    display: grid;
+    place-items: center;
+    top:50%;
+    width: 25px;
     border-radius: 50%;
     background: white;
     aspect-ratio: 1/1;
-    transform: rotateX(75deg);
+}
+
+ .open{
+    cursor: pointer;
+}
+
+@keyframes glow {
+    0%{
+        box-shadow: 0 0 0 0;
+        transform: scale(1);
+    }
+
+    50%{
+        box-shadow: 0px 0px 15px #fff;
+        transform: scale(1.2);
+    }
+
+    100%{
+        box-shadow: 0 0 0 0;
+        transform: scale(1);
+    }
+    
+}
+
+
+.lock-img{
+    width: 100%;
+    object-fit: cover;
+}
+
+.selected-lock{
+    background:var(--bg_card);
+    animation: glow 2s ease-in-out infinite;
 }
 
 #start-game{
