@@ -4,6 +4,8 @@ const characterData = [
         name:"Senor Abid",
         descriptor:"Looking for a rishta",
         type:"hero",
+        level:1,
+        exp:0,
         hp:64,
         selected:false,
         current:true,
@@ -30,6 +32,8 @@ const characterData = [
         name:"Bald Hamzah",
         descriptor:"Sweaty Overwatch Player",
         type:"hero",
+        level:1,
+        exp:0,
         hp:58,
         selected:false,
         current:false,
@@ -50,8 +54,7 @@ const characterData = [
         resources:[
                 {name:"Potion",type:"heal",info:"Recovers 15 hp",stat:15,quantity:3},
                 {name:"Fortifying syrup",type:"def", info:"Reduces incoming damage by 5 for three turns. Can't use items while this is in effect.",stat:5, quantity:2,}
-            ]
-        
+            ],
         
     },
     {
@@ -59,6 +62,8 @@ const characterData = [
         name:"Funky Munty",
         descriptor:"Just Married, Watch me slowly lose hair",
         type:"hero",
+        level:1,
+        exp:0,
         hp:72,
         selected:false,
         current:false,
@@ -82,6 +87,8 @@ const characterData = [
         name:"Hairy Jawad",
         descriptor:"Got one wife, looking for three more.",
         type:"hero",
+        level:1,
+        exp:0,
         hp:56,
         selected:false,
         current:false,

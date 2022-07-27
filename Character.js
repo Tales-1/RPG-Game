@@ -26,7 +26,7 @@ class Character{
     setMovesHtml(){
         let movesHtml = this.moves.map((move)=>{
             return ( `
-            <span class="option option--flex">${move.name} <p class="move-info">${move.info}</p>
+            <span class="option-battle option--flex">${move.name} <p class="move-info">${move.info}</p>
             <aside class="move-stats">
             <img src="./imgs/moveicons/accuracy.png" alt="damage-icon" class="dmg-icon">${move.acc*100}%
             <img src="./imgs/moveicons/damage.png" alt="damage-icon" class="dmg-icon margin-l">${move.dmg}</aside>
@@ -256,7 +256,7 @@ class Character{
                 <span class="tab" id="tab-res"><img src="./imgs/moveicons/pouch.png" alt="image of pouch" class="battle-icon"></span>
             </div>`
         return `
-                    <div class="gc__card--active gc__card--styles" id=${id}>
+                    <article class="gc__card--active gc__card--styles" id=${id}>
                             <strong class="card__name gc--white">${name}</strong>
                             <img src=${img} alt="Bald abid" class="img-battle">
                             <p class="hp-number">health : ${this.hp}</p>
@@ -270,7 +270,7 @@ class Character{
                                 </div>
                                 ${type === "hero" ? displayTabs : ""}
                             </section>
-                    </div>
+                    </article>
                     `
                     
     }

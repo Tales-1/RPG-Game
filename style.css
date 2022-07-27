@@ -298,36 +298,183 @@ border: none;
     object-fit: contain;
 }
 
-
-.moves-container{
-    display:flex;
-    margin-inline: auto;
-    font-family: 'Bangers', cursive;
-  
+.stats-container{
+    position: absolute;
+    width: 100%;
+    height: 50%;
+    gap: .3em;
+    transform: translateY(180%);
+    background-color: #df5353;
+    transition: all 500ms ease-in-out;
 }
 
-.moves-select-page{
-    text-align: center;
+.stats-container::before{
+    content: 'STATS';
     position: absolute;
+    font-size: 2em;
+    letter-spacing: 2px;
+    font-family: 'Bangers', cursive;
+    top: -0.8em;
+    left: 50%;
+    transform: translateX(-55%);
+}
+
+.stats-appear{
+    display: flex;
     align-items: center;
-    bottom: 0;
+    flex-direction: column;
+    transition: all 1000ms ease-in-out;
+}
+
+.transform{
+    transform:translateY(100%);
+}
+
+.stats{
+    display: flex;
+    width: 80%;
+    margin: 3em 0 0 1em;
+    font-size: 1.3em;
+    gap: 2em;
+}
+
+
+.arrow{
+    position: absolute;
+    right: 50%;
+    top: -1.6em;
+    width: 25px;
+    aspect-ratio: 1/1;
+    border-top: 7px solid white;
+    border-right: 7px solid white;
+    transition: all 200ms ease-in-out;
+    transform: rotateZ(-45deg) translateX(50%);
+    cursor: pointer;
+}
+
+
+.heart{
+    position: relative;
+    color: black;
+    background-color: white;
+    width: 25px;
+    aspect-ratio: 1/1;
+    border-radius: .5em 0 .5em 0;
+    transform:rotateZ(-45deg);
+
+   
+}
+.heart::before{
+    content: '';
+    position: absolute;
+    top: 8px;
     width: 100%;
-    background-color: #df5353;
+    aspect-ratio: 1/1;
+    background-color: white;
+    border-radius: 50% 50% 0 0;
+    transform: translateY(-100%);
+}
+
+.heart::after{
+    content: '';
+    position: absolute;
+    right: 8px;
+    width: 100%;
+    aspect-ratio: 1/1;
+    background-color: white;
+    border-radius: 50% 50% 0 0;
+    transform: translateX(100%) rotateZ(90deg);
+}
+
+.straighten{
+    position: absolute;
+    bottom: 4px;
+    left: 6px;
     font-size: .9em;
-    padding: .5em;
-    gap: .3em;
+    transform: rotateZ(45deg);
+    z-index: 2;
+}
+
+.straighten::after{
+    content: 'hp';
+    position: absolute;
+    color: white;
+    font-family: 'Bangers', cursive;
+    top: -1.6em;
+    letter-spacing: 1px;
+    left: 4px;
+}
+
+.rotate{
+    transform:rotateZ(135deg) translateX(-50%);
+}
+.opacity-zero{
+    opacity: 0%;
+}
+
+.exp-bar-container{
+    position: relative;
+    width: 80%;
+    height: 12px;
+    background-color: black;
+    border: 2px solid goldenrod;
+    border-radius: 1em;
+    bottom: .5em;
+   
+}
+
+.exp-bar-container::before{
+    content: "EXP";
+    position: absolute;
+    font-family: 'Bangers', cursive;
+    letter-spacing: 2px;
+    top: -1.6em;
+    left:50%;
+    transform:translateX(-50%);
+}
+.exp-bar{
+    position: absolute;
+    left: 0;
+    width: 30%;
+    height: 100%;
+    border-radius: 1em;
+    background: rgb(250, 233, 77);
+}
+
+
+.moves-container{
+    display: flex;
+    width: 80%;
+    flex-direction: column;
+    font-family: 'Bangers', cursive;
 }
 
 .moves-title{
-    position: absolute;
-    padding-bottom: 1.5em;
-    font-size: 1em;
+    text-align: center;
     letter-spacing: 3px;
-    padding-top: .3em;
-    top: 0;
-    right: 50%;
-    transform: translate(50%);
 }
+
+
+.moves-select-page{
+    display: flex;
+    flex-direction: column;
+    font-size: .9em;
+}
+
+.flex-row{
+    display: flex;
+    
+}
+
+.move-stats-select{
+    display: flex;
+     width: 50%;
+    margin-left: auto;
+    justify-content: end;
+    align-items: flex-start;
+}
+
+
 
 .battle-menu{
     position: relative;
@@ -368,9 +515,17 @@ border: none;
  
 }
 
-
-
+.option:last-child{
+    margin-top: .8em;
+}
 .option{
+    position: relative;
+    color: white;
+    margin-top: .3em;
+    width: 100%;
+}
+
+.option-battle{
     position: relative;
     color: white;
     margin-top: .8em;
@@ -386,6 +541,8 @@ border: none;
     border-radius: .6em;
     width: 100%;
 }
+
+
 
 .move-info{
     position: relative;
@@ -405,8 +562,15 @@ border: none;
     font-size: .8em;
 }
 
+
+
 .dmg-icon{
     width: 5%;
+}
+
+.dmg-icon-select{
+    width: 13%;
+    align-self: center;
 }
 .margin-l{
     margin-left: .5em;

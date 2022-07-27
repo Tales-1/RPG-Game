@@ -90,6 +90,18 @@ window.addEventListener("load",()=>{
         
     });
 
+    const arrowUp = document.querySelectorAll(".arrow")
+    const statsContainer = document.querySelectorAll(".stats-container")
+    const statsAppear = document.querySelectorAll(".stats-appear")
+    arrowUp.forEach((arrow,index)=>{
+        arrow.addEventListener("click",()=>{
+            statsContainer[index].classList.toggle("transform")
+            arrow.classList.toggle("rotate")
+            statsAppear[index].classList.toggle("opacity-zero")
+        })
+    })
+    
+
 
 })
 
@@ -255,22 +267,46 @@ function toggleFlags(){
 }
 
 function displayPage(){
+    
     let cardMenu = characterData.map((item)=>{
         if(item.type === "hero"){
         
-            return (`<div class="gc__card gc__card--styles gc-hover ${item.current && "current-slide"}" id=${item.id}>
-                <div class="image-holder"><img src=${item.img} alt=${item.name} class="img"></div>
-                <div class="info-container">
-                    <span class="level"><span>Level 10</span></span>
-                    <h2 class="card__name">${item.name}</h2>
-                    <p class="descriptor">${item.descriptor}</p>
-                </div>
-                <section class="moves-container moves-select-page">
-                    <h3 class="moves-title">MOVES</h3>
-                    <span class="option">${item.moves[0].name}</span>
-                    <span class="option">${item.moves[1].name}</span>
-                </section>
-                </div>`)
+            return (`<article class="gc__card gc__card--styles gc-hover ${item.current && "current-slide"}" id=${item.id}>
+                    <div class="image-holder"><img src=${item.img} alt=${item.name} class="img"></div>
+                    <div class="info-container">
+                        <span class="level"><span>Level ${item.level}</span></span>
+                        <h2 class="card__name">${item.name}</h2>
+                        <p class="descriptor">${item.descriptor}</p>
+                    </div>
+                    <section class="stats-container">
+                          <span class="arrow"></span>
+                        <div class="stats-appear opacity-zero">
+                        <div class="stats">
+                            <span class="heart"><span class="straighten">${item.hp}</span></span>
+                            <div class="exp-bar-container"><div class="exp-bar"></div></div>
+                        </div>
+                        <div class="moves-container">
+                            <h3 class="moves-title">MOVES</h3>
+                            <div class="moves-select-page">
+
+                            <span class="option flex-row">${item.moves[0].name}
+                                <aside class="move-stats-select">
+                                    <img src="./imgs/moveicons/accuracy.png" alt="damage-icon" class="dmg-icon-select">${item.moves[0].acc * 100}%
+                                    <img src="./imgs/moveicons/damage.png" alt="damage-icon" class="dmg-icon-select margin-l">${item.moves[0].dmg}
+                                </aside>
+                            </span>
+
+                            <span class="option flex-row">${item.moves[1].name}
+                                <aside class="move-stats-select">
+                                    <img src="./imgs/moveicons/accuracy.png" alt="damage-icon" class="dmg-icon-select">${item.moves[1].acc * 100}%
+                                    <img src="./imgs/moveicons/damage.png" alt="damage-icon" class="dmg-icon-select margin-l">${item.moves[1].dmg}
+                                </aside>
+                            </span>
+                            </div>
+                        </div>
+                        </div>
+                    </section>
+                </article>`)
             }
     
     })
