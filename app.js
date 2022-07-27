@@ -49,7 +49,15 @@ window.addEventListener("load",()=>{
     slides.forEach(slidePosition); 
    })
    
-   
+    const statsBtn = document.querySelectorAll(".stats-btn")
+    const statsContainer = document.querySelectorAll(".stats-container")
+    const statsAppear = document.querySelectorAll(".stats-appear")
+    statsBtn.forEach((btn,index)=>{
+        btn.addEventListener("click",()=>{
+            statsContainer[index].classList.toggle("transform")
+            statsAppear[index].classList.toggle("opacity-zero")
+        })
+    })
     
     
     const moveSlide =(currentSlide, targetSlide, track)=>{
@@ -79,6 +87,10 @@ window.addEventListener("load",()=>{
         const targetIndex = slides.findIndex(slide => slide === nextSlide);
         moveSlide(currentSlide, nextSlide, track);
         hideArrows(slides,targetIndex);
+        for(let i=0; i<statsContainer.length;i++){
+            statsContainer[i].classList.remove("transform")
+            statsAppear[i].classList.add("opacity-zero")
+        }
     })
 
     leftBtn.addEventListener("click", e =>{
@@ -87,41 +99,30 @@ window.addEventListener("load",()=>{
         const targetIndex = slides.findIndex(slide => slide === previousSlide)
         moveSlide(currentSlide, previousSlide, track);
         hideArrows(slides,targetIndex);
-        
+        for(let i=0; i<statsContainer.length;i++){
+            statsContainer[i].classList.remove("transform")
+            statsAppear[i].classList.add("opacity-zero")
+        }
     });
 
-    const arrowUp = document.querySelectorAll(".arrow")
-    const statsContainer = document.querySelectorAll(".stats-container")
-    const statsAppear = document.querySelectorAll(".stats-appear")
-    arrowUp.forEach((arrow,index)=>{
-        arrow.addEventListener("click",()=>{
-            statsContainer[index].classList.toggle("transform")
-            arrow.classList.toggle("rotate")
-            statsAppear[index].classList.toggle("opacity-zero")
+    
+    
+    const articles = Array.from(cardContainer.children)
+    articles.forEach((card)=>{
+        card.addEventListener("click",(e)=>{
+            const targetCard = e.target.closest("article")
+            let initiateCard
+            if(!targetCard) return
+            unselectCards()
+            if(targetCard.classList.contains("gc__card")){
+                targetCard.classList.add("selected")
+                initiateCard = targetCard
+            } 
+            selectCard(initiateCard.id)
         })
     })
-    
-
-
 })
 
-
-cardContainer.addEventListener("click",(e)=>{
-    const targetCard = e.target.closest("div")
-    let initiateCard
-    if(!targetCard || targetCard.id==="card-container") return
-    unselectCards()
-    if(targetCard.classList.contains("gc__card")){
-        targetCard.classList.add("selected")
-        initiateCard = targetCard
-    } 
-    else{
-        targetCard.parentElement.classList.add("selected")
-        initiateCard = targetCard.parentElement
-    }
-    console.log(initiateCard.id)
-    selectCard(initiateCard.id)
-})
 
 startBtn.addEventListener("click",()=>{
     if(characterSelected){
@@ -132,8 +133,6 @@ startBtn.addEventListener("click",()=>{
     }    
     console.log("clicked")
 })
-
-
 
 
 
@@ -278,8 +277,8 @@ function displayPage(){
                         <h2 class="card__name">${item.name}</h2>
                         <p class="descriptor">${item.descriptor}</p>
                     </div>
-                    <section class="stats-container">
-                          <span class="arrow"></span>
+                    <section class="stats-container" id="stats">
+                    <button class='stats-btn lined thick'>STATS</button>
                         <div class="stats-appear opacity-zero">
                         <div class="stats">
                             <span class="heart"><span class="straighten">${item.hp}</span></span>

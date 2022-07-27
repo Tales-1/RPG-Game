@@ -3,6 +3,7 @@
 :root{
     --bg_card: #FD6644;
     --bg_card-orange:#FFB342;
+    --font_bangers:'Bangers', cursive;
 }
 
 /* Box sizing rules */
@@ -115,8 +116,7 @@ select {
     height: 100%;
     width: 80%;
     max-width: 400px;
-    overflow-x:hidden;
-    overflow-y: visible;
+    overflow:hidden;
     border-radius: 1em;
     aspect-ratio: 1/1;
 }
@@ -182,6 +182,8 @@ border: none;
     flex-direction: column;
     justify-content: start;
     align-items: center;
+    cursor: pointer;
+  
    
 }
 
@@ -207,7 +209,6 @@ border: none;
     width: 100%;
     top: 0;
     bottom: 0;
-
 }
 
 .gc-hover{
@@ -279,13 +280,13 @@ border: none;
 
 
 .card__name{
-    font-family: 'Bangers', cursive;
+    font-family: var(--font_bangers);
     font-size: 1.3em;
     letter-spacing: 4px;
 }
 
 .descriptor{
-    font-family: 'Bangers', cursive;
+    font-family: var(--font_bangers);
     font-size: 0.8em;
     letter-spacing: 4px;
 }
@@ -303,12 +304,14 @@ border: none;
     width: 100%;
     height: 50%;
     gap: .3em;
-    transform: translateY(180%);
+    font-family: var(--font_bangers);
+    transform: translateY(193%);
     background-color: #df5353;
     transition: all 500ms ease-in-out;
 }
 
-.stats-container::before{
+
+/* .stats-container::before{
     content: 'STATS';
     position: absolute;
     font-size: 2em;
@@ -317,7 +320,7 @@ border: none;
     top: -0.8em;
     left: 50%;
     transform: translateX(-55%);
-}
+} */
 
 .stats-appear{
     display: flex;
@@ -339,19 +342,23 @@ border: none;
 }
 
 
-.arrow{
+.stats-btn{
     position: absolute;
     right: 50%;
-    top: -1.6em;
-    width: 25px;
-    aspect-ratio: 1/1;
-    border-top: 7px solid white;
-    border-right: 7px solid white;
+    font-size: 1.8em;
+    top: -1.4em;
+    letter-spacing: 4px;
+    transform: translateX(50%);
     transition: all 200ms ease-in-out;
-    transform: rotateZ(-45deg) translateX(50%);
     cursor: pointer;
+    background-color: white;
+    box-shadow: 20px 38px 34px -26px hsla(0,0%,0%,.2);
+    border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;
 }
 
+.lined.thick{
+    border:solid 7px #41403E;
+}
 
 .heart{
     position: relative;
@@ -399,7 +406,7 @@ border: none;
     content: 'hp';
     position: absolute;
     color: white;
-    font-family: 'Bangers', cursive;
+    font-family: var(--font_bangers);
     top: -1.6em;
     letter-spacing: 1px;
     left: 4px;
@@ -426,7 +433,7 @@ border: none;
 .exp-bar-container::before{
     content: "EXP";
     position: absolute;
-    font-family: 'Bangers', cursive;
+    font-family: var(--font_bangers);
     letter-spacing: 2px;
     top: -1.6em;
     left:50%;
@@ -446,7 +453,7 @@ border: none;
     display: flex;
     width: 80%;
     flex-direction: column;
-    font-family: 'Bangers', cursive;
+    font-family: var(--font_bangers);
 }
 
 .moves-title{
