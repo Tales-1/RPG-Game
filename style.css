@@ -4,6 +4,8 @@
     --bg_card: #FD6644;
     --bg_card-orange:#FFB342;
     --font_bangers:'Bangers', cursive;
+    --bg_dark:#485461;
+    --bg_img-color:linear-gradient(315deg, #485461 0%, #28313b 74%);
 }
 
 /* Box sizing rules */
@@ -110,6 +112,7 @@ select {
     margin-top: .3em;
    height: 95vh;
 }
+
 
 .gc__track-container{
     position: relative;
@@ -337,7 +340,7 @@ border: none;
     display: flex;
     width: 80%;
     margin: 3em 0 0 1em;
-    font-size: 1.3em;
+    font-size: 1m;
     gap: 2em;
 }
 
@@ -687,9 +690,7 @@ border: none;
     color: white;
 }
 
-
-
-#start-game{
+#continue{
     position: relative;
     bottom: 3em;
     align-self: flex-start;
@@ -698,7 +699,9 @@ border: none;
     height: fit-content;
 }
 
+
 .selected{
+    z-index: 3;
     background-color: rgb(14, 129, 167);
 }
 
@@ -781,4 +784,104 @@ border: none;
 .flex > * {
     width: 75px;
     padding: .2em;
+}
+
+
+
+/* Map page */
+
+#map-page{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    height: 100vh;
+    background: var(--bg_dark);
+    background-image: var(--bg_img-color);
+
+}
+
+.map{
+    margin-block: auto;
+    width: 100%;
+}
+
+.circle_container{
+    display: flex;
+    justify-content: center;
+    background-color: #f1dfd1;
+    background-image: linear-gradient(315deg, #f1dfd1 0%, #f6f0ea 74%);
+    padding: 1em;
+    flex-flow: row wrap;
+    margin-inline: auto;
+    gap: 2em;
+    width: 80%;
+    max-width: 700px;
+    border-radius: 1.5em;
+}
+
+.circle{
+    position: relative;
+    width: 100%;
+    max-width: 100px;
+    aspect-ratio: 1/1;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    z-index: 3;
+}
+
+.lock-number{
+    position: absolute;
+    display: grid;
+    place-items: center;
+    top:50%;
+    width: 25px;
+    border-radius: 50%;
+    background: white;
+    aspect-ratio: 1/1;
+}
+
+ .open{
+    cursor: pointer;
+}
+
+@keyframes glow {
+    0%{
+        box-shadow: 0 0 0 0;
+        transform: scale(1);
+    }
+
+    50%{
+        box-shadow: 0px 0px 15px #fff;
+        transform: scale(1.2);
+    }
+
+    100%{
+        box-shadow: 0 0 0 0;
+        transform: scale(1);
+    }
+    
+}
+
+
+.lock-img{
+    width: 100%;
+    object-fit: cover;
+}
+
+.selected-lock{
+    background:var(--bg_card);
+    animation: glow 2s ease-in-out infinite;
+}
+
+#start-game{
+    position: relative;
+    padding: .5em;
+    margin-bottom: auto;
+    height: fit-content;
+
+}
+
+.m-auto{
+    margin-top: auto;
 }

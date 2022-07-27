@@ -116,8 +116,6 @@ const characterData = [
         descriptor:"",
         type:"enemy",
         hp:42,
-        selected:false,
-        current:false,
         img:"./imgs/evilmary.png",
         moves:[{name:"Nag", dmg:6,info:"", acc:0.8},{name:"Rey Mysterio 619",info:"", dmg:14,acc:0.6}],
         resources:[{},{}]
@@ -128,8 +126,6 @@ const characterData = [
         descriptor:"",
         type:"enemy",
         hp:45,
-        selected:false,
-        current:false,
         img:"./imgs/chav.png",
         moves:[{name:"I'll knock yer 'ead in", dmg:6,info:"", acc:0.8},{name:"Get out of my country",info:"", dmg:15,acc:0.6}],
         resources:[{},{}]
@@ -140,8 +136,6 @@ const characterData = [
         descriptor:"",
         type:"enemy",
         hp:50,
-        selected:false,
-        current:false,
         img:"./imgs/boomer.png",
         moves:[{name:"Boomer Humour", dmg:7,info:"", acc:0.8},{name:"Body Slam",info:"", dmg:17,acc:0.6}],
         resources:[{},{}]
