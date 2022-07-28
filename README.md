@@ -12,7 +12,11 @@
  - calculate remaining health after each turn
  - call new enemy after defeating it
  - end game after being defeated
-
+ 
+ UPDATED ---
+ - Added roadmap with 9 levels
+ - Made enemies progressively stronger
+ - Added stats and allowed players to level up after gaining enough experience points
 
 ### Methods required: 
 
