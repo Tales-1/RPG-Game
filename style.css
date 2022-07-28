@@ -262,11 +262,13 @@ border: none;
 .level{
     position: relative;
     display: flex;
+    
+    letter-spacing: 2px;
     justify-content: center;
     margin-bottom: 1em;
-    color:rgb(203, 217, 235);
+    color:rgb(255, 255, 255);
     font-weight: bold;
-    font-size: .8em;
+    font-size: 1em;
 }
 
 
@@ -339,7 +341,7 @@ border: none;
 .stats{
     display: flex;
     width: 80%;
-    margin: 3em 0 0 1em;
+    margin-top: 3em;
     font-size: 1m;
     gap: 2em;
 }
@@ -602,10 +604,12 @@ border: none;
     text-align: center;
     width: 80%;
     height: 5em;
-    background-color: #f3f4f7;
-    background-image: linear-gradient(315deg, #f3f4f7 0%, #caccd1 74%);
+    background-color: white;
+    box-shadow: 20px 38px 34px -26px hsla(0,0%,0%,.2);
+    border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;
     box-shadow: 0 0 3px 5px blue,;
 }
+
 
 
 @media (min-width:400px){
@@ -617,6 +621,8 @@ border: none;
     .stats-btn{
         font-size: 1.6em;
     }
+
+    
 }
 
 @media (min-width:900px){
@@ -706,16 +712,20 @@ border: none;
 
 .nav-buttons_container{
     display: flex;
-    gap: 1em;
+    margin-top: 1em;
+    gap: 5em;
     position: relative;
-    bottom: 3.2em;
+
+}
+
+.bottom{
+    bottom: 5em;
 }
 
 #continue{
     position: relative;
     align-self: flex-start;
-    padding: .5em;
-    margin-bottom: 8sem;
+    padding: 1em 1.5em;
     height: fit-content;
 }
 
@@ -775,7 +785,7 @@ border: none;
 .gc__msgcontainer{
     display: flex;
     width: 50%;
-    gap: 3em;
+    gap: 6em;
     max-width: 500px;
     flex-direction: column;
     align-items: center;
@@ -812,16 +822,17 @@ border: none;
 
 #map-page{
     display: flex;
-    align-items: center;
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 5em;
     height: 100vh;
     background: var(--bg_dark);
     background-image: var(--bg_img-color);
 
 }
 
-.map{
-    margin-block: auto;
+.map{ 
     width: 100%;
 }
 
@@ -842,7 +853,7 @@ border: none;
 .circle{
     position: relative;
     width: 100%;
-    max-width: 100px;
+    max-width: 60px;
     aspect-ratio: 1/1;
     display: grid;
     place-items: center;
@@ -850,12 +861,14 @@ border: none;
     z-index: 3;
 }
 
+
 .lock-number{
     position: absolute;
     display: grid;
     place-items: center;
     top:50%;
-    width: 25px;
+    font-size: 12px;
+    width: 20px;
     border-radius: 50%;
     background: white;
     aspect-ratio: 1/1;
@@ -901,11 +914,23 @@ border: none;
 #start-game{
     position: relative;
     padding: .5em;
-    margin-bottom: auto;
     height: fit-content;
 
 }
 
-.m-auto{
-    margin-top: auto;
+.progress{
+    display: flex;
+    flex-direction: column;
+    color: white;
+}
+
+@media (min-width:700px) {
+    .circle{
+        max-width: 100px;
+    }
+
+    .lock-number{
+        font-size: 20px;
+        width: 30px;
+    }
 }

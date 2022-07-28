@@ -8,6 +8,7 @@ const characterData = [
         exp:0,
         hp:22,
         selected:false,
+        stage:1,
         current:true,
         img:"./imgs/senorabid.png",
         moves:[
@@ -24,7 +25,7 @@ const characterData = [
             ],
         resources:[
                 {name:"Potion",type:"heal",info:"Recovers 15 hp",stat:15,quantity:3},
-                {name:"Fortifying syrup",type:"def", info:`Reduces incoming damage by 5 for three turns. Can't use items while this is in effect.`,stat:5, quantity:2,}]
+                {name:"Fortifying syrup",type:"def", info:`Reduces incoming damage by 3 for three turns. Can't use items while this is in effect.`,stat:3, quantity:2,}]
         
     },
     {
@@ -36,6 +37,7 @@ const characterData = [
         exp:0,
         hp:22,
         selected:false,
+        stage:1,
         current:false,
         img:"./imgs/hamzahbald(1).png",
         moves:[
@@ -53,7 +55,7 @@ const characterData = [
             }],
         resources:[
                 {name:"Potion",type:"heal",info:"Recovers 15 hp",stat:15,quantity:3},
-                {name:"Fortifying syrup",type:"def", info:"Reduces incoming damage by 5 for three turns. Can't use items while this is in effect.",stat:5, quantity:2,}
+                {name:"Fortifying syrup",type:"def", info:"Reduces incoming damage by 3 for three turns. Can't use items while this is in effect.",stat:3, quantity:2,}
             ],
         
     },
@@ -66,6 +68,7 @@ const characterData = [
         exp:0,
         hp:26,
         selected:false,
+        stage:1,
         current:false,
         img:"./imgs/munty-final.png",
         moves:[
@@ -79,7 +82,7 @@ const characterData = [
                 acc:0.7}],
         resources:[
             {name:"Potion",type:"heal",info:"Recovers 15 hp",stat:15,quantity:3},
-            {name:"Fortifying syrup",type:"def", info:"Reduces incoming damage by 5 for three turns.Can't use items while this is in effect",stat:5, quantity:2, }]
+            {name:"Fortifying syrup",type:"def", info:"Reduces incoming damage by 3 for three turns.Can't use items while this is in effect",stat:3, quantity:2, }]
         
     },
     {
@@ -91,6 +94,7 @@ const characterData = [
         exp:0,
         hp:20,
         selected:false,
+        stage:1,
         current:false,
         img:"./imgs/jay-fin.png",
         moves:[
@@ -108,7 +112,7 @@ const characterData = [
             ],
         resources:[
             {name:"Potion",type:"heal",info:"Recovers 15 hp",stat:15,quantity:3},
-            {name:"Fortifying syrup",type:"def", info:"Reduces incoming damage by 5 for three turns.Can't use items while this is in effect.", stat:5, quantity:2}]
+            {name:"Fortifying syrup",type:"def", info:"Reduces incoming damage by 3 for three turns.Can't use items while this is in effect.", stat:3, quantity:2}]
     },
 ]
 
@@ -117,17 +121,17 @@ let enemyData = [
         id:"enemy-soldier",
         name:"Soldier A",
         type:"enemy",
-        hp:18,
+        hp:4,
         img:"./imgs/Enemypics/soldier-A.jpg",
-        moves:[{name:"Slash",dmg:4,info:"", acc:0.9},{name:"Lunge",info:"", dmg:7,acc:0.7}],
+        moves:[{name:"Slash",dmg:4,info:"", acc:0.9},{name:"Lunge",info:"", dmg:5,acc:0.7}],
     },
     {
         id:"enemy-soldier",
         name:"Soldier B",
         type:"enemy",
-        hp:23,
-        img:"./imgs/chav.png",
-        moves:[{name:"Thrust", dmg:4,info:"", acc:0.9},{name:"Charge",info:"", dmg:7,acc:0.7}],
+        hp:5,
+        img:"./imgs/Enemypics/soldier-B.jpg",
+        moves:[{name:"Thrust", dmg:4,info:"", acc:0.9},{name:"Charge",info:"", dmg:5,acc:0.7}],
     },
 //     {
 //         id:"enemy-boomer",
@@ -141,5 +145,5 @@ let enemyData = [
 
 
 let thresholds = [
-    {},{level:2,thresh:10},{level:3,thresh:14},{level:4,thresh:18},{level:5,thresh:22},{level:6,thresh:24},{level:7,thresh:28},{level:8,thresh:32},{level:9,thresh:36},{level:10,thresh:40},
+    {},{level:2,thresh:10},{level:3,thresh:14},{level:4,thresh:19},{level:5,thresh:23},{level:6,thresh:28},{level:7,thresh:32},{level:8,thresh:37},{level:9,thresh:42},{level:10,thresh:49},
 ]

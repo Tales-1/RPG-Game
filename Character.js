@@ -5,7 +5,7 @@ class Character{
     constructor(data){
         Object.assign(this,data)
         this.maxHealth = this.hp
-        this.maxExp = thresholds[this.level].thresh
+        if(this.exp){this.maxExp = thresholds[this.level].thresh}
         this.storeDmg = [this.moves[0].dmg,this.moves[1].dmg]
         this.storeMoves = [this.moves[0].name,this.moves[1].name]
         this.storeAcc = [this.moves[0].acc,this.moves[1].acc]
@@ -54,6 +54,19 @@ class Character{
         return resourceHtml}
     }
 
+    updateExp(exp){
+        this.exp+=exp
+        this.resources[0].quantity++
+        this.resources[1].quantity++
+        if(this.resources[0].quantity > 3) { this.resources[0].quantity = 3}
+        if(this.resources[1].quantity > 2) { this.resources[1].quantity = 2}
+        if(this.exp>this.maxExp){
+            this.level++
+            this.exp = this.exp % this.maxExp
+            this.moves.map(move=>move.dmg+=1)
+            this.maxHealth+=6
+        }
+    }
 
     selectOpt(){
         const moves = document.querySelector(".moves-battle-page")
@@ -125,8 +138,7 @@ class Character{
         })
     }
 
-    battleDialogueHtml(){
-        console.log(`${this.type} : ${this.img}`)
+    battleDialogueHtml(reduce = 0){
         if(this.res){
             if(this.type==="hero"){return `${this.name} used ${this.setRes.name}`}
             // else if(this.setRes.type === "def" && this.reduce){return `${this.name} used ${this.selectedMoveName}, it did  damage!`}
@@ -135,10 +147,10 @@ class Character{
            return `${this.name} used ${this.selectedMoveName}, it missed!`
         } 
         else  {
-            return `${this.name} used ${this.selectedMoveName}, it did ${this.dmgDealt} damage!`}
+            return `${this.name} used ${this.selectedMoveName}, it did ${this.dmgDealt - reduce} damage!`}
     }
     
-    damageDealt(){
+    dealDamage(){
         // store damage of the move selected for Player
         if(this.type === "enemy"){
             this.randomiseMove()
@@ -152,12 +164,14 @@ class Character{
                             this.dmgDealt = this.storeDmg[0]
                             break;
                         case this.storeMoves[1]:
-                            this.dmgDealt = this.storeDmg[1];
+                            this.dmgDealt = this.storeDmg[1]
                             break;
                     }
                     return this.dmgDealt
-                } else {return this.dmgDealt }
-                
+                } else {
+                    return this.dmgDealt  
+                }
+            
             }
         } else if(this.type==="hero" && this.moveSelected){
             this.accuracy =  Math.random()
@@ -225,9 +239,14 @@ class Character{
 
     takeDamage(attackMove){
         if(this.reduce && this.countDown > 0){
-            if(attackMove === 0) return
-            this.hp = (this.hp + this.setRes.stat) - attackMove 
-            this.countDown--
+            if(attackMove === 0) { this.countDown--}
+            else{
+                this.diff = (this.hp + this.setRes.stat) - attackMove 
+                this.hp = this.diff
+                this.dmgDealt = this.diff
+                this.countDown--
+            }
+            
         } else {
             this.hp-=attackMove
             this.reduce = false;

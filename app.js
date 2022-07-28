@@ -4,6 +4,7 @@ const gameContainer = document.getElementById("game-container")
 const cardContainer = document.getElementById("card-container")
 // const startBtn = document.getElementById("start-game")
 const continueBtn = document.getElementById("continue")
+const newGame = document.getElementById("new-game")
 const firstPage = document.getElementById("first-page")
 const battleDialogue = document.getElementById("battle-dialogue")
 const leftBtn = document.getElementById("leftBtn")
@@ -20,7 +21,6 @@ const rightBtn = document.getElementById("rightBtn")
 
 //         `
 // FLAGS
-
 let chosenCharacter;
 let enemiesArray
 let enemy;
@@ -29,6 +29,8 @@ let characterSelected = false;
 let playerTurn = false;
 let switchTurn = false
 let isDialogue = false
+
+
 // EVENT LISTENERS
 
 window.addEventListener("load",()=>{
@@ -123,18 +125,26 @@ window.addEventListener("load",()=>{
 
 continueBtn.addEventListener("click",()=>{
     if(characterSelected){
+        let retrieveChar = JSON.parse(localStorage.getItem(chosenCharacter.id))
+        let stageNo = retrieveChar.stage;
         toggleFlags()
-        displayMap()
+        displayMap(stageNo,retrieveChar)
     }
     
 })
 
-
-
-
+newGame.addEventListener("click",()=>{
+    if(characterSelected){
+        localStorage.setItem(chosenCharacter.id,JSON.stringify(chosenCharacter))
+        let retrieveChar = JSON.parse(localStorage.getItem(chosenCharacter.id))
+        toggleFlags()
+        displayMap(1,retrieveChar)
+    }
+})
 
 
 // FUNCTIONS .
+
 
 function unselectCards(){
     const cardChildren = Array.from(cardContainer.children)
@@ -155,18 +165,23 @@ function selectCard(card){
 }
 
 
+function resetFlags(){
+    playerTurn = true 
+    isDialogue = false
+    chosenCharacter.buffer = false
+}
+
 
 function attack(){
     if(playerTurn && !isDialogue && chosenCharacter.moveSelected){
-        enemy.takeDamage(chosenCharacter.damageDealt())
-        battleDialogueHtml()
+        enemy.takeDamage(chosenCharacter.dealDamage())
+        displayBattleDialogueHtml(0)
         toggleBattleDialogue()
         render()
         if(enemy.dead){
-            endBattle()
              if(enemiesArray.length > 0 ){
                  setTimeout(()=>{
-                     enemy = new Character(enemies.shift())
+                    enemy = new Character(enemiesArray.shift())
                      toggleBattleDialogue()
                      render()
                  },2000)
@@ -175,14 +190,19 @@ function attack(){
              }
         } else if(!playerTurn){
             setTimeout(()=>{
-                chosenCharacter.takeDamage(enemy.damageDealt())
-                battleDialogueHtml()
+                chosenCharacter.takeDamage(enemy.dealDamage())
+                if(chosenCharacter.reduce){
+                    displayBattleDialogueHtml(3)
+                }
+                else {displayBattleDialogueHtml(0)}
                 toggleBattleDialogue()
                 render()
+
                 if(chosenCharacter.dead){
+                    console.log("Here")
                     endBattle()
                 }
-            },1500)
+            },2500)
     }
     
 }}
@@ -192,13 +212,13 @@ function useItem(){
         if(playerTurn && !isDialogue && chosenCharacter.itemSelected ){
             console.log(chosenCharacter.buffer)
             chosenCharacter.useItem()
-            battleDialogueHtml()
+            displayBattleDialogueHtml()
             toggleBattleDialogue()
             render()
            if(!playerTurn){
                 setTimeout(()=>{
-                    chosenCharacter.takeDamage(enemy.damageDealt())
-                    battleDialogueHtml()
+                    chosenCharacter.takeDamage(enemy.dealDamage(chosenCharacter.reduce))
+                    displayBattleDialogueHtml()
                     toggleBattleDialogue()
                     render()
                     if(chosenCharacter.dead){
@@ -210,11 +230,11 @@ function useItem(){
     
 }}
  
-function battleDialogueHtml(){
+function displayBattleDialogueHtml(num){
     if(playerTurn){
-        battleDialogue.innerHTML = chosenCharacter.battleDialogueHtml()
+        battleDialogue.innerHTML = chosenCharacter.battleDialogueHtml(0)
     } else { 
-        battleDialogue.innerHTML = enemy.battleDialogueHtml()}
+        battleDialogue.innerHTML = enemy.battleDialogueHtml(num)}
 
 }
 
@@ -260,25 +280,33 @@ function render(){
 
 }
 
-function displayMap(){
+function displayMap(stageNo,retrieveChar){
     let mapHtml = `
 <div id="map-page">
     <h1 class="gc__title gc--white m-auto">Select Battle</h1>
     <div class="map">
         <div class="circle_container">
-          ${displayStages()}
+          ${displayStages(stageNo)}
           </div>
     </div>
-    <button id="start-game">
-    Start Game!
-</button>
+    <div class="nav-buttons_container">
+        <button id="start-game">Start Game!</button>
+        <button id="main-menu">Main Menu</button>
+    </div>
 </div>
-
- `
-
+`   
+    characterSelected = true
+    chosenCharacter = new Character(retrieveChar)
     gameContainer.innerHTML = mapHtml
+    
+    const mainMenu = document.getElementById("main-menu")
+    mainMenu.addEventListener("click",()=>{
+    window.location.reload();
+    
+    })
+
     let circles = document.querySelectorAll(".circle")
-        stagesArray.forEach((stage,index)=>{
+        updatedStagesArray.forEach((stage,index)=>{
             if(stage.open){
                 circles[index].addEventListener("click",()=>{
                     mapObject = stage
@@ -301,9 +329,9 @@ function displayMap(){
 function prepareEnemies(){
     enemiesArray = enemyData.map(enemy => new Character(enemy))
     for(let i=0; i<enemiesArray.length;i++){
-        enemiesArray[i].hp += Math.ceil(mapObject.level * 4.5)
-        enemiesArray[i].moves[0].dmg +=Math.ceil(mapObject.level * 0.7)
-        enemiesArray[i].moves[1].dmg +=Math.ceil(mapObject.level * 1.1)
+        enemiesArray[i].hp += Math.ceil(mapObject.stageNo * 5.5)
+        enemiesArray[i].moves[0].dmg +=Math.ceil(mapObject.stageNo * 0.65)
+        enemiesArray[i].moves[1].dmg +=Math.ceil(mapObject.stageNo * 0.85)
     }
     enemy = new Character(enemiesArray.shift())
 }
@@ -315,15 +343,64 @@ function toggleFlags(){
     playerTurn = true
 }
 
-function displayPage(){
-    
+function getLocalStorage(id){
+    return localStorage.getItem(id) ? //check if localStorage,getItem("list") exists 
+    JSON.parse(localStorage.getItem(id)) : // items = list which is an array 
+    false;
+}
 
+
+
+function displayPage(){
     let cardMenu = characterData.map((item)=>{
-        if(item.type === "hero"){
-            let thresh = thresholds[item.level].thresh
-            let percentage = getPercentage(item.exp,thresh)
-            
-            return (`<article class="gc__card gc__card--styles gc-hover ${item.current && "current-slide"}" id=${item.id}>
+            let savedChar = getLocalStorage(item.id)
+            console.log(savedChar)
+            if(savedChar){
+                let thresh = thresholds[savedChar.level].thresh
+                let percentage = getPercentage(savedChar.exp,thresh)
+                return (`<article class="gc__card gc__card--styles gc-hover ${item.current && "current-slide"}" id=${item.id}>
+                <div class="image-holder"><img src=${item.img} alt=${item.name} class="img"></div>
+                <div class="info-container">
+                    <span class="level"><span>Level ${savedChar.level}</span></span>
+                    <h2 class="card__name">${item.name}</h2>
+                    <p class="descriptor">${item.descriptor}</p>
+                </div>
+                <section class="stats-container" id="stats">
+                <button class='stats-btn lined thick'>STATS</button>
+                    <div class="stats-appear opacity-zero">
+                    <div class="stats">
+                        <span class="heart"><span class="straighten">${savedChar.hp}</span></span>
+                        <div class="exp-bar-container"> <div class="exp-bar" style="width:${percentage}%"></div> <div class="threshold">${thresh}</div></div>
+                    </div>
+                    <div class="moves-container">
+                        <h3 class="moves-title">MOVES</h3>
+                        <div class="moves-select-page">
+
+                        <span class="option flex-row">${savedChar.moves[0].name}
+                            <aside class="move-stats-select">
+                                <img src="./imgs/moveicons/accuracy.png" alt="damage-icon" class="dmg-icon-select">${savedChar.moves[0].acc * 100}%
+                                <img src="./imgs/moveicons/damage.png" alt="damage-icon" class="dmg-icon-select margin-l">${savedChar.moves[0].dmg}
+                            </aside>
+                        </span>
+
+                        <span class="option flex-row">${savedChar.moves[1].name}
+                            <aside class="move-stats-select">
+                                <img src="./imgs/moveicons/accuracy.png" alt="damage-icon" class="dmg-icon-select">${savedChar.moves[1].acc * 100}%
+                                <img src="./imgs/moveicons/damage.png" alt="damage-icon" class="dmg-icon-select margin-l">${savedChar.moves[1].dmg}
+                            </aside>
+                        </span>
+                        </div>
+                    </div>
+                    </div>
+                </section>
+            </article>`)
+
+            }
+           
+            else{
+                let thresh = thresholds[item.level].thresh
+                let percentage = getPercentage(item.exp,thresh)
+                return (`<article class="gc__card gc__card--styles gc-hover ${item.current && "current-slide"}" id=${item.id}>
                     <div class="image-holder"><img src=${item.img} alt=${item.name} class="img"></div>
                     <div class="info-container">
                         <span class="level"><span>Level ${item.level}</span></span>
@@ -360,39 +437,69 @@ function displayPage(){
                     </section>
                 </article>`)
             }
+            
+            
     
     })
     cardMenu = cardMenu.join("")
     return cardMenu
 }
 
+
+function updateStatsAndResources(){
+    let exp = Math.ceil(6 + mapObject.stageNo * 0.6)
+    chosenCharacter.updateExp(exp)
+    chosenCharacter.hp = chosenCharacter.maxHealth
+    return exp
+}
 function endBattle(){
+    
      const endMessage = chosenCharacter.hp === 0  && enemy.hp === 0 ? 
      "No victors - everyone died" : chosenCharacter.hp > 0 ? "Level Complete" : "You lose!"
+     const mapBtn = enemy.hp < 1 ? `<button id="map-menu">Back to map</button>` : `<span id="map-menu"></span>`
      if(enemy.hp < 1){
-        console.log(stagesArray[mapObject.level-1])
-        stagesArray[mapObject.level - 1].complete = true
-        stagesArray[mapObject.level - 1].open = true
-        stagesArray[mapObject.level].open = true
+        if(mapObject.stageNo === chosenCharacter.stage){
+            chosenCharacter.stage++
+        }
+        updateStatsAndResources()
+        localStorage.setItem(chosenCharacter.id,JSON.stringify(chosenCharacter))
+     } else if (chosenCharacter.hp<1){ 
+        chosenCharacter.hp = chosenCharacter.maxHealth
+        chosenCharacter.dead = false
+        localStorage.setItem(chosenCharacter.id,JSON.stringify(chosenCharacter))
      }
+     
      toggleBattleDialogue()
      setTimeout(()=>{
          gameContainer.innerHTML = `
                          <div class="gc--pagestyles" id="end-pg">
                              <div class="gc__msgcontainer">
                                  <h1 class="endmessage">${endMessage}</h1>
-                                 
-                                 <button id="map-menu">Level Map</button>
+                                 <div class="progress">
+                                    <span>Level:${chosenCharacter.level}</span>
+                                    <span>Exp:${chosenCharacter.exp}</span>
+                                    <span>Exp to next level: ${chosenCharacter.maxExp}</span>
+                                 </div>
+                                 ${mapBtn}
                                  <button id="main-menu">Main Menu</button>
                                  </div>
                           </div>`
        
              const mapMenu = document.getElementById("map-menu")
              mapMenu.addEventListener("click",()=>{
-                displayMap()
+                displayMap(chosenCharacter.stage,chosenCharacter)
+             })
+             const mainMenu = document.getElementById("main-menu")
+             mainMenu.addEventListener("click",()=>{
+                window.location.reload();
+                
              })
 
      },1200)
         
      
 }
+
+
+
+
