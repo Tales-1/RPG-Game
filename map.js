@@ -31,7 +31,6 @@ function displayStages(stageNo){
         } else {return stage}
     })
     
-    console.log(updatedStagesArray[1])
     let stagesHtml = updatedStagesArray.map((stage,index)=>{
         return `<div class ="circle ${!stage.open ? "locked" : stage.complete ? "complete" : "open"}">
                     <img src="./imgs/lock-${stage.open ? "open" : "closed"}.png" alt="padlock" class="lock-img">

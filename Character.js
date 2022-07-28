@@ -85,7 +85,6 @@ class Character{
             if(!this.buffer){
                 this.setRes = this.resources[targetIndex]
             }
-            console.log(this.setRes)
             this.attack = false
             this.res = true
             this.itemSelected = true
@@ -158,7 +157,6 @@ class Character{
                 return 0
             } else if(this.hit){
                 if(this.dmgDealt===0){
-                    console.log("using switch statement")
                     switch(this.selectedMoveName){
                         case this.storeMoves[0]:
                             this.dmgDealt = this.storeDmg[0]
@@ -175,7 +173,6 @@ class Character{
             }
         } else if(this.type==="hero" && this.moveSelected){
             this.accuracy =  Math.random()
-            console.log(this.accuracy)
             if(this.accuracy <= this.setAcc){
                 this.hit = true
                 this.moveSelected = false
@@ -222,7 +219,6 @@ class Character{
     useItem(){
         if(this.res){
             if(this.setRes.type === "heal" && !this.buffer){
-                console.log("healing")
                 this.hp += this.setRes.stat
                 if(this.hp>this.maxHealth){
                     this.hp = this.maxHealth

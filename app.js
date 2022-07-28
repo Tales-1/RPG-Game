@@ -199,7 +199,6 @@ function attack(){
                 render()
 
                 if(chosenCharacter.dead){
-                    console.log("Here")
                     endBattle()
                 }
             },2500)
@@ -210,7 +209,6 @@ function attack(){
 function useItem(){
     if(chosenCharacter.setRes.quantity && !chosenCharacter.buffer){
         if(playerTurn && !isDialogue && chosenCharacter.itemSelected ){
-            console.log(chosenCharacter.buffer)
             chosenCharacter.useItem()
             displayBattleDialogueHtml()
             toggleBattleDialogue()
@@ -322,7 +320,6 @@ function displayMap(stageNo,retrieveChar){
                 prepareEnemies()
                 render()
             }    
-            console.log("clicked")
         })
 }
 
@@ -354,7 +351,6 @@ function getLocalStorage(id){
 function displayPage(){
     let cardMenu = characterData.map((item)=>{
             let savedChar = getLocalStorage(item.id)
-            console.log(savedChar)
             if(savedChar){
                 let thresh = thresholds[savedChar.level].thresh
                 let percentage = getPercentage(savedChar.exp,thresh)
