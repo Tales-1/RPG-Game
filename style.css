@@ -256,7 +256,7 @@ border: none;
     flex-direction: column;
     text-align: center;
     margin-block: 0 1.2em;
-    font-size: 1.3em;
+    font-size: 1.08em;
 }
 
 .level{
@@ -348,7 +348,7 @@ border: none;
 .stats-btn{
     position: absolute;
     right: 50%;
-    font-size: 1.8em;
+    font-size: 1.1em;
     top: -1.4em;
     letter-spacing: 4px;
     transform: translateX(50%);
@@ -445,12 +445,19 @@ border: none;
 .exp-bar{
     position: absolute;
     left: 0;
-    width: 30%;
     height: 100%;
     border-radius: 1em;
     background: rgb(250, 233, 77);
 }
 
+.threshold{
+    position: absolute;
+    right: -1em;
+    top: 50%;
+    transform: translateY(-50%);
+    color: white;
+    font-family: var(--font_bangers);
+}
 
 .moves-container{
     display: flex;
@@ -601,10 +608,14 @@ border: none;
 }
 
 
-@media (min-width:450px){
+@media (min-width:400px){
     .info-container{
         font-size: 1.5em;
         margin-top: .2em;
+    }
+
+    .stats-btn{
+        font-size: 1.6em;
     }
 }
 
@@ -652,7 +663,7 @@ border: none;
     }
 
     .info-container{
-        font-size: 1.2em;
+        font-size: 1.1em;
         margin-top: 1em;
     }
 
@@ -672,7 +683,7 @@ border: none;
     }
 
     .card__name{
-        font-size: 2.3em;
+        font-size: 2.6em;
     }
 
     .descriptor{
@@ -682,6 +693,9 @@ border: none;
         font-size: 1.4em;
     }
 
+    .stats-btn{
+        font-size: 2em;
+    }
     
 }
 
@@ -690,9 +704,15 @@ border: none;
     color: white;
 }
 
+.nav-buttons_container{
+    display: flex;
+    gap: 1em;
+    position: relative;
+    bottom: 3.2em;
+}
+
 #continue{
     position: relative;
-    bottom: 3em;
     align-self: flex-start;
     padding: .5em;
     margin-bottom: 8sem;
@@ -843,6 +863,10 @@ border: none;
 
  .open{
     cursor: pointer;
+}
+
+.complete{
+    background: rgb(92, 196, 92);
 }
 
 @keyframes glow {

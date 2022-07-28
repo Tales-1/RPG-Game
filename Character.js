@@ -5,10 +5,11 @@ class Character{
     constructor(data){
         Object.assign(this,data)
         this.maxHealth = this.hp
+        this.maxExp = thresholds[this.level].thresh
         this.storeDmg = [this.moves[0].dmg,this.moves[1].dmg]
         this.storeMoves = [this.moves[0].name,this.moves[1].name]
         this.storeAcc = [this.moves[0].acc,this.moves[1].acc]
-        this.storeRes = [this.resources[0].stat,this.resources[1].stat]
+        if(this.resources) {this.storeRes = [this.resources[0].stat,this.resources[1].stat]}
         this.hit = false
         this.dmgDealt = 0
         this.setAcc = 0
@@ -125,6 +126,7 @@ class Character{
     }
 
     battleDialogueHtml(){
+        console.log(`${this.type} : ${this.img}`)
         if(this.res){
             if(this.type==="hero"){return `${this.name} used ${this.setRes.name}`}
             // else if(this.setRes.type === "def" && this.reduce){return `${this.name} used ${this.selectedMoveName}, it did  damage!`}
@@ -246,6 +248,10 @@ class Character{
         `)
     }
 
+    expBarHtml(){
+        const percent = getPercentage(this.exp, this.maxExp)
+        return (`style = "width: ${percent}%"`)
+    }
     cardHtml(){
         const {name,type,img,moves,id} = this
         const healthBar = this.healthBarHtml()

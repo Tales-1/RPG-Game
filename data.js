@@ -6,20 +6,20 @@ const characterData = [
         type:"hero",
         level:1,
         exp:0,
-        hp:64,
+        hp:22,
         selected:false,
         current:true,
         img:"./imgs/senorabid.png",
         moves:[
             {
                 name:"Flex",
-                dmg:6, info:"Senor Abid takes off his shirt and flexes his muscles to the enemy.",
+                dmg:5, info:"Senor Abid takes off his shirt and flexes his muscles to the enemy.",
                 acc:0.9
             },
             {
                 name:"Batchelor's Kiss", 
-                dmg:13,info:"Senor Abid sends a flying kiss to his target",
-                acc:0.7
+                dmg:8,info:"Senor Abid sends a flying kiss to his target",
+                acc:0.8
             }
             ],
         resources:[
@@ -34,7 +34,7 @@ const characterData = [
         type:"hero",
         level:1,
         exp:0,
-        hp:58,
+        hp:22,
         selected:false,
         current:false,
         img:"./imgs/hamzahbald(1).png",
@@ -47,9 +47,9 @@ const characterData = [
             },
             {
                 name:"Me ne bola", 
-                dmg:20,
+                dmg:10,
                 info:"Bald Hamzah shatters his targets ears with his urdu accent",
-                acc:0.5
+                acc:0.6
             }],
         resources:[
                 {name:"Potion",type:"heal",info:"Recovers 15 hp",stat:15,quantity:3},
@@ -64,18 +64,18 @@ const characterData = [
         type:"hero",
         level:1,
         exp:0,
-        hp:72,
+        hp:26,
         selected:false,
         current:false,
         img:"./imgs/munty-final.png",
         moves:[
             {
                 name:"Get 'Em Milo!",
-                dmg:6, info:"Funky Munty hurls Milo at the enemy who unleashes his claws", 
+                dmg:5, info:"Funky Munty hurls Milo at the enemy who unleashes his claws", 
                 acc:0.9},
             {
                 name:"Run 'Em Over", 
-                dmg:10,info:"Funky Munty jumps into his Jaguar and runs over his target.",
+                dmg:8,info:"Funky Munty jumps into his Jaguar and runs over his target.",
                 acc:0.7}],
         resources:[
             {name:"Potion",type:"heal",info:"Recovers 15 hp",stat:15,quantity:3},
@@ -89,56 +89,57 @@ const characterData = [
         type:"hero",
         level:1,
         exp:0,
-        hp:56,
+        hp:20,
         selected:false,
         current:false,
         img:"./imgs/jay-fin.png",
         moves:[
             {
                 name:"Big Fish Attack", 
-                dmg:8,
+                dmg:6,
                 info:"Hairy Jawad throws an extra large Masala Fish at his target", 
                 acc:0.9},
             {
                 name:"Fwem Fwem Fresh",
                 info:"Do you really need info for this move?", 
-                dmg:13,
-                acc:0.6
+                dmg:9,
+                acc:0.7,
             }
             ],
         resources:[
             {name:"Potion",type:"heal",info:"Recovers 15 hp",stat:15,quantity:3},
             {name:"Fortifying syrup",type:"def", info:"Reduces incoming damage by 5 for three turns.Can't use items while this is in effect.", stat:5, quantity:2}]
     },
-    {
-        id:"enemy-maryam",
-        name:"Evil Maryam",
-        descriptor:"",
-        type:"enemy",
-        hp:42,
-        img:"./imgs/evilmary.png",
-        moves:[{name:"Nag", dmg:6,info:"", acc:0.8},{name:"Rey Mysterio 619",info:"", dmg:14,acc:0.6}],
-        resources:[{},{}]
-    },
-    {
-        id:"enemy-chav",
-        name:"The Local Chav",
-        descriptor:"",
-        type:"enemy",
-        hp:45,
-        img:"./imgs/chav.png",
-        moves:[{name:"I'll knock yer 'ead in", dmg:6,info:"", acc:0.8},{name:"Get out of my country",info:"", dmg:15,acc:0.6}],
-        resources:[{},{}]
-    },
-    {
-        id:"enemy-boomer",
-        name:"Ultimate Boomer",
-        descriptor:"",
-        type:"enemy",
-        hp:50,
-        img:"./imgs/boomer.png",
-        moves:[{name:"Boomer Humour", dmg:7,info:"", acc:0.8},{name:"Body Slam",info:"", dmg:17,acc:0.6}],
-        resources:[{},{}]
-    },
 ]
 
+let enemyData = [
+    {
+        id:"enemy-soldier",
+        name:"Soldier A",
+        type:"enemy",
+        hp:18,
+        img:"./imgs/Enemypics/soldier-A.jpg",
+        moves:[{name:"Slash",dmg:4,info:"", acc:0.9},{name:"Lunge",info:"", dmg:7,acc:0.7}],
+    },
+    {
+        id:"enemy-soldier",
+        name:"Soldier B",
+        type:"enemy",
+        hp:23,
+        img:"./imgs/chav.png",
+        moves:[{name:"Thrust", dmg:4,info:"", acc:0.9},{name:"Charge",info:"", dmg:7,acc:0.7}],
+    },
+//     {
+//         id:"enemy-boomer",
+//         name:"Boomer",
+//         type:"enemy",
+//         hp:30,
+//         img:"./imgs/boomer.png",
+//         moves:[{name:"Boomer Humour", dmg:7,info:"", acc:0.9},{name:"Body Slam",info:"", dmg:7,acc:0.7}],
+//     },
+]
+
+
+let thresholds = [
+    {},{level:2,thresh:10},{level:3,thresh:14},{level:4,thresh:18},{level:5,thresh:22},{level:6,thresh:24},{level:7,thresh:28},{level:8,thresh:32},{level:9,thresh:36},{level:10,thresh:40},
+]
