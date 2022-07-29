@@ -174,7 +174,7 @@ function resetFlags(){
 
 function attack(){
     if(playerTurn && !isDialogue && chosenCharacter.moveSelected){
-        enemy.takeDamage(chosenCharacter.dealDamage())
+        enemy.takeDamage(chosenCharacter.dealDamage(),chosenCharacter.effect)
         displayBattleDialogueHtml(0)
         toggleBattleDialogue()
         render()
@@ -190,20 +190,28 @@ function attack(){
              }
         } else if(!playerTurn){
             setTimeout(()=>{
-                chosenCharacter.takeDamage(enemy.dealDamage())
-                if(chosenCharacter.reduce){
-                    displayBattleDialogueHtml(3)
-                }
+                if(!enemy.buffer){chosenCharacter.takeDamage(enemy.dealDamage())}
+                if(chosenCharacter.reduce) {displayBattleDialogueHtml(3)}
                 else {displayBattleDialogueHtml(0)}
+                if(enemy.burn){enemy.takeDamage(2,chosenCharacter.effect), displayStatusDialogue(2,chosenCharacter.effect)}
                 toggleBattleDialogue()
                 render()
-
                 if(chosenCharacter.dead){
                     endBattle()
-                }
+                } else if(enemy.dead){
+                    if(enemiesArray.length > 0 ){
+                        setTimeout(()=>{
+                           enemy = new Character(enemiesArray.shift())
+                            toggleBattleDialogue()
+                            render()
+                            playerTurn = true
+                        },2000)
+                    } else { 
+                       endBattle()
+                    }
+               }
             },2500)
-    }
-    
+        }
 }}
 
 function useItem(){
@@ -217,11 +225,23 @@ function useItem(){
                 setTimeout(()=>{
                     chosenCharacter.takeDamage(enemy.dealDamage(chosenCharacter.reduce))
                     displayBattleDialogueHtml()
+                    if(enemy.burn){enemy.takeDamage(2,chosenCharacter.effect), displayStatusDialogue(2,chosenCharacter.effect)}
                     toggleBattleDialogue()
                     render()
                     if(chosenCharacter.dead){
                         endBattle()
-                    }
+                    } else if(enemy.dead){
+                        if(enemiesArray.length > 0 ){
+                            setTimeout(()=>{
+                               enemy = new Character(enemiesArray.shift())
+                                toggleBattleDialogue()
+                                render()
+                                playerTurn = true
+                            },2000)
+                        } else { 
+                           endBattle()
+                        }
+                   }
                 },1500)
         }
     }
@@ -234,6 +254,10 @@ function displayBattleDialogueHtml(num){
     } else { 
         battleDialogue.innerHTML = enemy.battleDialogueHtml(num)}
 
+}
+
+function displayStatusDialogue(num){
+    battleDialogue.innerHTML += enemy.statusEffectDialogue(num)
 }
 
 function toggleBattleDialogue(){
@@ -329,6 +353,7 @@ function prepareEnemies(){
         enemiesArray[i].hp += Math.ceil(mapObject.stageNo * 5.5)
         enemiesArray[i].moves[0].dmg +=Math.ceil(mapObject.stageNo * 0.65)
         enemiesArray[i].moves[1].dmg +=Math.ceil(mapObject.stageNo * 0.85)
+        enemiesArray[i].level *= mapObject.stageNo
     }
     enemy = new Character(enemiesArray.shift())
 }
@@ -385,6 +410,13 @@ function displayPage(){
                                 <img src="./imgs/moveicons/damage.png" alt="damage-icon" class="dmg-icon-select margin-l">${savedChar.moves[1].dmg}
                             </aside>
                         </span>
+
+                        <span class="option flex-row">${savedChar.magic[0].name}
+                        <aside class="move-stats-select">
+                            <img src="./imgs/moveicons/accuracy.png" alt="damage-icon" class="dmg-icon-select">${savedChar.magic[0].acc * 100}%
+                            <img src="./imgs/moveicons/damage.png" alt="damage-icon" class="dmg-icon-select margin-l">${savedChar.magic[0].dmg}
+                        </aside>
+                    </span>
                         </div>
                     </div>
                     </div>
@@ -427,6 +459,13 @@ function displayPage(){
                                     <img src="./imgs/moveicons/damage.png" alt="damage-icon" class="dmg-icon-select margin-l">${item.moves[1].dmg}
                                 </aside>
                             </span>
+
+                            <span class="option flex-row">${item.magic[0].name}
+                        <aside class="move-stats-select">
+                            <img src="./imgs/moveicons/accuracy.png" alt="damage-icon" class="dmg-icon-select">${item.magic[0].acc * 100}%
+                            <img src="./imgs/moveicons/damage.png" alt="damage-icon" class="dmg-icon-select margin-l">${item.magic[0].dmg}
+                        </aside>
+                    </span>
                             </div>
                         </div>
                         </div>
@@ -446,7 +485,7 @@ function updateStatsAndResources(){
     let exp = Math.ceil(6 + mapObject.stageNo * 0.6)
     chosenCharacter.updateExp(exp)
     chosenCharacter.hp = chosenCharacter.maxHealth
-    return exp
+    chosenCharacter.mana = chosenCharacter.maxMana
 }
 function endBattle(){
     
@@ -461,20 +500,25 @@ function endBattle(){
         localStorage.setItem(chosenCharacter.id,JSON.stringify(chosenCharacter))
      } else if (chosenCharacter.hp<1){ 
         chosenCharacter.hp = chosenCharacter.maxHealth
+        chosenCharacter.mana = chosenCharacter.maxMana
         chosenCharacter.dead = false
         localStorage.setItem(chosenCharacter.id,JSON.stringify(chosenCharacter))
      }
      
      toggleBattleDialogue()
+     let fill = new Character(getLocalStorage(chosenCharacter.id))
      setTimeout(()=>{
          gameContainer.innerHTML = `
                          <div class="gc--pagestyles" id="end-pg">
                              <div class="gc__msgcontainer">
                                  <h1 class="endmessage">${endMessage}</h1>
                                  <div class="progress">
-                                    <span>Level:${chosenCharacter.level}</span>
-                                    <span>Exp:${chosenCharacter.exp}</span>
-                                    <span>Exp to next level: ${chosenCharacter.maxExp}</span>
+                                 <div class="exp-bar-container"><div class="exp-bar" ${fill.expBarHtml()}></div></div>
+                                    ${fill.updateStats()}
+                                    <span>Level:${fill.level}</span>
+                                    <span>Exp gained: ${Math.ceil(6 + mapObject.stageNo * 0.6)}</span>
+                                    <span>Current Exp:${fill.exp}</span>
+                                    <span>Exp to next level: ${fill.maxExp}</span>
                                  </div>
                                  ${mapBtn}
                                  <button id="main-menu">Main Menu</button>
