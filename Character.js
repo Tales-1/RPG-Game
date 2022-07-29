@@ -167,6 +167,7 @@ class Character{
             this.effect = this.magic[targetIndex].effect
             this.setAcc = this.magic[targetIndex].acc
             if(this.mana - this.expendMana < 0) return
+            
             this.res = false
             this.attack = true
             this.ability = true
@@ -267,7 +268,6 @@ class Character{
             if(this.accuracy <= this.setAcc){
                 this.hit = true
                 this.moveSelected = false
-                this.effect 
                 if(this.ability){
                     this.mana-= this.expendMana
                 }
@@ -284,8 +284,8 @@ class Character{
 
     randomiseMove(){
         // Select random move for computer
-        if(!this.buffer){
-            this.accuracy =  Math.random().toFixed(1)
+       
+        this.accuracy =  Math.random().toFixed(1)
         this.index = Math.floor(Math.random())
         if(Math.random()<0.7){
             this.index = 0
@@ -310,7 +310,7 @@ class Character{
             this.dmgDealt = 0
             this.selectedMoveName = this.storeMoves[0]
         }
-        }
+        
         
     }
 
@@ -338,14 +338,15 @@ class Character{
     }
 
     takeDamage(attackMove,effect = null){
-        if(effect ==="freeze"){
+        if(effect === "freeze"){
             this.statusOn = true
             this.buffer = true
             effect = null
             setTimeout(()=>{
                 this.buffer = false
                 this.statusOn = false
-            },6000)
+            },3000)
+
         } else if(effect ==="burn" && this.effectCountdown > 0){
             this.statusOn = true
             this.burn = true
@@ -370,7 +371,6 @@ class Character{
         } else {
             this.hp-=attackMove
             this.reduce = false;
-            this.buffer = false
             this.countDown = 3
         
         }
@@ -392,7 +392,7 @@ class Character{
         if(this.mana){
             const percent = getPercentage(this.mana,this.maxMana)
             if(percent === 0){percent = 0.01}
-            console.log(percent)
+           
             return (`
             <div class="bar-container"><span class="bar blue" style = "width:${percent}%"></span></div>   
             `)

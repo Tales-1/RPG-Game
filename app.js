@@ -191,9 +191,16 @@ function attack(){
         } else if(!playerTurn){
             setTimeout(()=>{
                 if(!enemy.buffer){chosenCharacter.takeDamage(enemy.dealDamage())}
+
                 if(chosenCharacter.reduce) {displayBattleDialogueHtml(3)}
                 else {displayBattleDialogueHtml(0)}
-                if(enemy.burn){enemy.takeDamage(2,chosenCharacter.effect), displayStatusDialogue(2,chosenCharacter.effect)}
+
+                if(enemy.burn){
+                    enemy.takeDamage(2,chosenCharacter.effect), 
+                    displayStatusDialogue(2,chosenCharacter.effect)
+                }
+                chosenCharacter.effect = "none"
+                
                 toggleBattleDialogue()
                 render()
                 if(chosenCharacter.dead){

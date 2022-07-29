@@ -159,5 +159,5 @@ let enemyData = [
 
 
 let thresholds = [
-    {},{level:2,thresh:10},{level:3,thresh:14},{level:4,thresh:19},{level:5,thresh:23},{level:6,thresh:28},{level:7,thresh:32},{level:8,thresh:37},{level:9,thresh:42},{level:10,thresh:49},
+    {},{level:2,thresh:10},{level:3,thresh:14},{level:4,thresh:19},{level:5,thresh:23},{level:6,thresh:28},{level:7,thresh:32},{level:8,thresh:37},{level:9,thresh:42},{level:10,thresh:49},{level:11,thresh:55},{level:12,thresh:63},{level:14,thresh:69},{level:15,thresh:78},{level:16,thresh:89}
 ]
