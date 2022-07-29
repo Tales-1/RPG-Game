@@ -88,6 +88,7 @@ class Character{
         this.exp+=exp
         this.resources[0].quantity++
         this.resources[1].quantity++
+        this.resources[2].quantity++
         if(this.resources[0].quantity > 3) { this.resources[0].quantity = 3}
         if(this.resources[1].quantity > 2) { this.resources[1].quantity = 2}
         if(this.exp>this.maxExp){
