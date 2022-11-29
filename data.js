@@ -1,7 +1,7 @@
 const characterData = [
     {   
         id:"hero-abid",
-        name:"Senor Abid",
+        name:`Si Se&#209;or`,
         descriptor:"Looking for a rishta",
         type:"hero",
         level:1,
@@ -11,7 +11,7 @@ const characterData = [
         selected:false,
         stage:1,
         current:true,
-        img:"./imgs/senorabid.png",
+        img:"./imgs/senor.png",
         moves:[
             {
                 name:"Flex",
@@ -33,7 +33,7 @@ const characterData = [
     },
     {
         id:"hero-hamzah",
-        name:"Bald Hamzah",
+        name:"Balder",
         descriptor:"Sweaty Overwatch Player",
         type:"hero",
         level:1,
@@ -43,7 +43,7 @@ const characterData = [
         selected:false,
         stage:1,
         current:false,
-        img:"./imgs/hamzahbald(1).png",
+        img:"./imgs/baldo.png",
         moves:[
             {
                 name:"Shiny Forehead", 
@@ -77,7 +77,7 @@ const characterData = [
         selected:false,
         stage:1,
         current:false,
-        img:"./imgs/munty-final.png",
+        img:"./imgs/funky-munty.png",
         moves:[
             {
                 name:"Get 'Em Milo!",
@@ -87,7 +87,7 @@ const characterData = [
                 name:"Run 'Em Over", 
                 dmg:8,info:"Funky Munty jumps into his Jaguar and runs over his target.",
                 acc:0.7}],
-        magic:[{name:"Crit", dmg:8, info:"Senor Abid charges his ice fist and smashes his target",acc:1,mana:5}],
+        magic:[{name:"Crit", dmg:8, info:"Funky Munty charges his ice fist and smashes his target",acc:1,mana:5}],
         resources:[
             {name:"Potion",type:"heal",info:"Recovers 15 hp",stat:15,quantity:3},
             {name:"Mana Potion",type:"utility", info:`Restores 7 MP`,stat:7, quantity:2,},
@@ -96,8 +96,8 @@ const characterData = [
     },
     {
         id:"hero-jawad",
-        name:"Hairy Jawad",
-        descriptor:"Got one wife, looking for three more.",
+        name:"Hairy Jay",
+        descriptor:"No idea why I'm a playable character",
         type:"hero",
         level:1,
         exp:0,
@@ -135,7 +135,7 @@ let enemyData = [
         type:"enemy",
         level:1,
         hp:4,
-        img:"./imgs/Enemypics/soldier-A.jpg",
+        img:"./imgs/Enemypics/soldier-A.png",
         moves:[{name:"Slash",dmg:4,info:"", acc:0.9},{name:"Lunge",info:"", dmg:5,acc:0.7}],
     },
     {
@@ -144,7 +144,7 @@ let enemyData = [
         type:"enemy",
         level:1,
         hp:5,
-        img:"./imgs/Enemypics/soldier-B.jpg",
+        img:"./imgs/Enemypics/soldier-B.png",
         moves:[{name:"Thrust", dmg:4,info:"", acc:0.9},{name:"Charge",info:"", dmg:5,acc:0.7}],
     },
 //     {

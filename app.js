@@ -294,16 +294,24 @@ function render(){
                           <div class="gc__cardcontainer--active">
                              ${chosenCharacter.cardHtml()}
                              <div class="flex">
-                             <button class="attack">Attack</button>
-                             <button class="use-item">Use Item</button>
+                                <button class="attack">Attack</button>
+                                <button class="use-item">Use Item</button>
                              </div>
                              ${enemy.cardHtml()}
                             </div>
-                           
+                            <footer class="footer">
+                                <button class="show-links"> ATTRIBUTION LINKS</button>
+                                ${attributionHTML}
+                          </footer>
                          </div>`
     selectMove()
     const attackBtn = document.querySelector(".attack")
     const useItemBtn = document.querySelector(".use-item")
+    const footer = document.querySelector(".footer")
+    const showLinks = document.querySelector(".show-links")
+    showLinks.addEventListener("click", () => {
+        footer.classList.toggle("show")
+    })
     attackBtn.addEventListener("click",attack)
     useItemBtn.addEventListener("click",useItem)
 

@@ -965,3 +965,33 @@ border: none;
         width: 30px;
     }
 }
+
+
+.footer { 
+    position:fixed; 
+    display:Flex;
+    transition: all 200ms ease-in-out;
+    justify-content: space-evenly;
+    transform:translateY(100%);
+    font-size:12px; 
+    gap:12px;
+    bottom: 0;
+    width:100vw;
+    padding:1rem;
+    background-color: white;
+    z-index: 10;
+}
+
+
+
+.show-links{
+    position: absolute;
+    padding:.5rem; 
+    top:-3rem;
+    font-size: 1rem;
+    cursor:pointer;
+}
+
+.show { 
+    transform:translateY(0)
+}
