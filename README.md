@@ -23,3 +23,11 @@
 1) Class constructors
 2) Functions
 3) Event listeners
+
+### Things to fix:
+
+- Refactor class constructor and use inheritance to split the code:
+ -- Create a separate hero and enemy class which inherits shared methods from a character class
+- Create a boss level
+- fix bugs when using status related attacks (e.g. ice punch will freeze the enemy if clicked even if the "attack" button isn't clicked)
+- fix enemy scaling (enemies can get too strong and difficult to beat)
