@@ -1,5 +1,7 @@
 # Vanilla JavaScript RPG game
 
+![rpg-game](https://user-images.githubusercontent.com/84051594/204838320-54993ca2-5d1b-42df-8aa0-7577993d9e19.png)
+
 ## Objective: To make an RPG, turn-based game using selected characters. Player takes it in turns to select an attack. Aim of the game is to defeat the enemy before dying.
 
 ### Different functions of the game:
