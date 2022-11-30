@@ -5,15 +5,16 @@
 ### Different functions of the game:
 
  - On load present hero character options
- - select charater
- - start button
+ - Select charater
+ - Start button
  - Selecting hero attack move
  - Attack button to execute turn
- - calculate remaining health after each turn
- - call new enemy after defeating it
- - end game after being defeated
+ - Use Item button to consume an item
+ - Calculate remaining health after each turn
+ - Call new enemy after defeating it
+ - End game after being defeated
  
- UPDATED ---
+ ###UPDATED ---
  - Added roadmap with 9 levels
  - Made enemies progressively stronger
  - Added stats and allowed players to level up after gaining enough experience points
